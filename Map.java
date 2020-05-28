@@ -1,6 +1,6 @@
 
 import processing.core.PApplet;
-public class Map  extends PApplet{
+public class Map extends PApplet{
 
 	public void settings()
 	{
@@ -29,12 +29,49 @@ public class Map  extends PApplet{
 		fill(121,227,28);
 		ellipse(x,y,30,30);
 	}
+	public void washroom(int x, int y)
+	{
+		//washroom 
+				fill(255);
+				rect(x,y,200,100);
+				fill(0);
+				rect(x+5,y+5,190,90);
+				fill(255);
+				strokeWeight(1);
+				stroke(255);
+				//male
+				ellipse(x+35,y+20,20,20);
+				line(x+35,y+30,x+35,y+68);
+				line(x+15,y+40,x+55,y+40);
+				line(x+35,y+68,x+20,y+98);
+				line(x+35,y+68,x+50,y+98);
+				line(x+120,y,x+62,y+95);
+				//female
+				ellipse(x+148,y+20,20,20);
+				triangle(x+148,y+30,x+128,y+71,x+168,y+71);
+				line(x+128,y+40,x+168,y+40);
+				line(x+138,y+60,x+138,y+95);
+				line(x+158,y+60,x+158,y+95);
+				noStroke();
+	}
+	public void hospital(int x,int y)
+	{
+		//hospital
+		stroke(255);
+				rect(x,y,200,100);
+				fill(219,15,15);
+				rect(x+5,y+5,190,90);
+				fill(255);
+				line(x+100,y+15,x+100,y+90);
+				line(x+63,y+50,x+138,y+50);
+				noStroke();
+	}
 	public void draw()
 	{ 
 		noStroke();
-		fill(24,139,24);
+		fill(24,139,24);//dark green
 		rect(0,0,1100,900);
-		fill(97,97,97);
+		fill(97,97,97); //grey;
 		// big road down
 		rect(110,0,100,900);
 		//big road left
@@ -97,34 +134,8 @@ public class Map  extends PApplet{
 		tree(488,847);
 		tree(1038,268);
 		tree(1040,602);
-		//washroom 
-		fill(255);
-		rect(215,775,200,100);
-		fill(0);
-		rect(220,780,190,90);
-		fill(255);
-		strokeWeight(1);
-		stroke(255);
-		//male
-		ellipse(250,795,20,20);
-		line(250,805,250,843);
-		line(230,815,270,815);
-		line(250,843,235,873);
-		line(250,843,265,873);
-		line(335,780,277,870);
-		//female
-		ellipse(363,795,20,20);
-		triangle(363,805,343,846,383,846);
-		line(343,815,383,815);
-		line(353,841,353,871);
-		line(373,841,373,871);
-		//hospital
-		rect(825,0,200,100);
-		fill(219,15,15);
-		rect(830,5,190,90);
-		fill(255);
-		line(925,15,925,90);
-		line(888,50,963,50);
+		washroom(215,775);
+		hospital(825,0);
 		if(mousePressed)
 		{
 		System.out.println("This is mouse x "+mouseX);
@@ -135,8 +146,9 @@ public class Map  extends PApplet{
 	public static void main(String[] args) {
 		String[] processingArgs= {"MyMap"};
 		Map map = new Map();
-		PApplet.runSketch(processingArgs, map);
-
+		Map t = new Tutorial();
+		//PApplet.runSketch(processingArgs, map);
+PApplet.runSketch(processingArgs, t);
 	}
 
 }
