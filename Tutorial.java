@@ -1,29 +1,44 @@
+import processing.core.PApplet;
 
 public class Tutorial extends Map
 {
-	public void draw()
+
+    
+   public Tutorial ()
+   {
+	   
+   }
+    public Tutorial(PApplet sketch, Main runner)
+    {
+    	super(sketch,runner);
+    }
+
+ 	public void drawScreen()
 	{
-	this.settings();
-	fill(24,139,24);
-	rect(0,250,1110,400);
-	strokeWeight(25);
-	stroke(97);
-	fill(24,139,24);
-	ellipse(300,550,150,150);
-	noStroke();
-	fill(97);
-	rect(0,400, 1100,100);
-	rect(50,500,50,50);
-	rect(350,350,50,50);
-	rect(850,500,50,50);
+		sketch.noStroke();
+	sketch.fill(97);
+	sketch.rect(0,0,1100,900);
+		sketch.fill(24,139,24);
+		sketch.rect(0,250,1110,400);
+		sketch.strokeWeight(25);
+		sketch.stroke(97);
+		sketch.fill(24,139,24);
+		sketch.ellipse(300,550,150,150);
+		sketch.noStroke();
+		sketch.fill(97);
+		sketch.rect(0,400, 1100,100);
+		sketch.rect(50,500,50,50);
+		sketch.rect(350,350,50,50);
+		sketch.rect(850,500,50,50);
 	handSanitizer(75,575);
 	washroom(275,250);
 	hospital(775,550);
 	table(575,360);
-	fill(157,82,32);
-	rect(550,520,75,20);
-	fill(0);
+	sketch.fill(157,82,32);
+	sketch.rect(550,520,75,20);
+	sketch.fill(0);
 	}
+	
 	public void slide()
 	{
 		fill(126,54,52);
