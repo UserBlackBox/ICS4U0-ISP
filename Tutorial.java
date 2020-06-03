@@ -8,9 +8,9 @@ public class Tutorial extends Map
    {
 	   
    }
-    public Tutorial(PApplet sketch, Main runner)
+    public Tutorial(PApplet sketch)
     {
-    	super(sketch,runner);
+    	super(sketch);
     }
 
  	public void drawScreen()

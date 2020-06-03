@@ -1,19 +1,16 @@
 
 import processing.core.PApplet;
 
-public class Map extends PApplet{
-
-	PApplet sketch;
-    Main runner;
+public class Map{
+    PApplet sketch;
     
     public Map()
     {
     	
     }
-    public Map(PApplet sketch, Main runner)
+    public Map(PApplet sketch)
     {
     	this.sketch = sketch;
-        this.runner = runner;
     }
 	public void handSanitizer(int x,int y)
 	{
