@@ -41,22 +41,22 @@ public class Tutorial extends Map
 	
 	public void slide()
 	{
-		fill(126,54,52);
-		rect(775,255,300,140);
-		fill(124,118,113);
-		rect(780,260,290,130);
+		sketch.fill(126,54,52);
+		sketch.rect(775,255,300,140);
+		sketch.fill(124,118,113);
+		sketch.rect(780,260,290,130);
 	}
 	//info slide
 	public void pause(String mainText,String title)
 	{
 		slide();
-		fill(0);
-		text(mainText,780,260,290,130);
-		text(title,480,260,300,50);		
+		sketch.fill(0);
+		sketch.text(mainText,780,260,290,130);
+		sketch.text(title,480,260,300,50);
 		while(true)
 		{
-			delay(1);
-			if(mousePressed)
+			sketch.delay(1);
+			if(sketch.mousePressed)
 			{
 				break;
 			}
