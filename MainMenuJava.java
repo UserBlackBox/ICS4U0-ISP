@@ -66,9 +66,9 @@ public class MainMenuJava extends JPanel implements ActionListener {
 		instructionsButton.addActionListener(this);
 		exitButton.addActionListener(this);
 
-		sketch.frame.setVisible(false);
-		sketch.noLoop();
-		frame.setVisible(true);
+		sketch.frame.setVisible(false); //hide PApplet window
+		sketch.noLoop(); //stop PApplet draw() loop
+		frame.setVisible(true); //show main menu window
 	}
 
 
@@ -94,9 +94,9 @@ public class MainMenuJava extends JPanel implements ActionListener {
 			runner.mode=2;
 			//frame.getContentPane().setBackground(Color.red);
 		}
-		frame.setVisible(false); 
-		sketch.loop();
-		sketch.frame.setVisible(true);
+		frame.setVisible(false); //hide main menu window
+		sketch.loop(); //start PApplet draw() loop
+		sketch.frame.setVisible(true); //show PApplet window
 	}
 
 }

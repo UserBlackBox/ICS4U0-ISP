@@ -2,7 +2,8 @@ import java.util.*;
 import processing.core.PApplet;
 
 public class Map{
-    PApplet sketch;
+    PApplet sketch; //PApplet window
+	//coordinate of heal locations for Person class to calculate and roll
     ArrayList<Integer[]> sanitizer = new ArrayList<Integer[]>(); //sanitizer station locations
 	int[] washroom = new int[2]; //washroom and hospital locations for Person chance rolls
 	int[] hospital = new int[2];
@@ -17,15 +18,7 @@ public class Map{
 		sketch.ellipse(x,y,50,50);
 		sketch.fill(255);
 		sketch.ellipse(x,y,40,40);
-		sanitizer.add(new Integer[]{x,y});
-	}
-	public void table(int x,int y)
-	{
-		
-		sketch.fill(140,69,22);
-		sketch.rect(x,y,25,25);
-		sketch.fill(102,41,0);
-		sketch.rect(x+3,y+3,19,19);
+		sanitizer.add(new Integer[]{x,y}); //add station location to ArrayList
 	}
 	public void tree(int x,int y)
 	{
@@ -74,7 +67,7 @@ public class Map{
 		sketch.line(x+63,y+50,x+138,y+50);
 		sketch.noStroke();
 
-		hospital[0] = x;
+		hospital[0] = x; //set coordinates for Person class
 		hospital[1] = y;
 	}
 	public void drawScreen()

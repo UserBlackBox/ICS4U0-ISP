@@ -1,19 +1,19 @@
 import processing.core.*;
 
 public class GameOverScreen {
-    PApplet sketch;
-    PFont font18, font32, font48;
-    PImage image1, image2;
-    boolean success;
-    long time;
-    Main runner;
+    PApplet sketch; //PApplet window
+    PFont font18, font32, font48; //fonts
+    PImage image1, image2; //virus images
+    boolean success; //did game end as win or lose
+    long time; //time left
+    Main runner; //main window
 
     public GameOverScreen(PApplet sketch, boolean s, long t, Main m){
         this.sketch = sketch;
-        font18 = sketch.loadFont("Graph-18.vlw");
+        font18 = sketch.loadFont("Graph-18.vlw"); //load fonts
         font32 = sketch.loadFont("Graph-32.vlw");
         font48 = sketch.loadFont("Graph-48.vlw");
-        image1 = sketch.loadImage("bacteriophage.png");
+        image1 = sketch.loadImage("bacteriophage.png"); //load images
         image2 = sketch.loadImage("adenovirus.png");
         success = s;
         time = t;
@@ -30,19 +30,19 @@ public class GameOverScreen {
 
         sketch.textFont(font32, 32);
         sketch.textAlign(sketch.CENTER);
-        if(success) {
-            long milliseconds = time;
+        if(success) { //win message
+            long milliseconds = time; //calculate time used
             int minutes = (int) milliseconds / 60000;
             milliseconds = milliseconds % 60000;
             int seconds = (int) milliseconds / 1000;
             sketch.rectMode(PApplet.CENTER);
             sketch.text("Congrats! You achieved full infection 0" + minutes + " minutes and " + seconds + " seconds", 550, 400, 500, 500);
-        }else{
+        }else{ //lose message
             sketch.rectMode(PApplet.CENTER);
             sketch.text("Unfortunately you did not infect enough people before the vaccine was developed.\nPlease try again.", 550, 500, 500, 500);
         }
 
-        sketch.textFont(font18, 18);
+        sketch.textFont(font18, 18); //prompt
         sketch.text("Click anywhere to exit", 550, 890);
 
         sketch.pushMatrix(); //lower left image
@@ -64,7 +64,7 @@ public class GameOverScreen {
         sketch.image(image2,0,0,100,100);
         sketch.popMatrix();
 
-        if(sketch.mousePressed){
+        if(sketch.mousePressed){ //exit to main menu if mouse clicked
             runner.mode=1;
             runner.prevFrameMode=1;
         }

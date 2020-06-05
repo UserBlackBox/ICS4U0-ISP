@@ -98,7 +98,7 @@ public class Person {
 
     public void sanitizer(){
         boolean inRange = false;
-        for(Integer[] i : map.sanitizer){
+        for(Integer[] i : map.sanitizer){ //loop through all sanitizer stations in map
             if(PApplet.dist(x,y,i[0],i[1])<=50 && !sanitizer){
                 sanitizer=true; //set boolean to true to prevent reroll until out of range of all stations
                 int rnd = new Random().nextInt(100);
