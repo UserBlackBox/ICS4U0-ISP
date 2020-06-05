@@ -1,13 +1,12 @@
-
+import java.util.*;
 import processing.core.PApplet;
 
 public class Map{
     PApplet sketch;
-    
-    public Map()
-    {
-    	
-    }
+    ArrayList<Integer[]> sanitizer = new ArrayList<Integer[]>(); //sanitizer station locations
+	int[] washroom = new int[2]; //washroom and hospital locations for Person chance rolls
+	int[] hospital = new int[2];
+
     public Map(PApplet sketch)
     {
     	this.sketch = sketch;
@@ -18,6 +17,7 @@ public class Map{
 		sketch.ellipse(x,y,50,50);
 		sketch.fill(255);
 		sketch.ellipse(x,y,40,40);
+		sanitizer.add(new Integer[]{x,y});
 	}
 	public void table(int x,int y)
 	{
@@ -58,6 +58,9 @@ public class Map{
 		sketch.line(x+138,y+60,x+138,y+95);
 		sketch.line(x+158,y+60,x+158,y+95);
 		sketch.noStroke();
+
+		washroom[0] = x;
+		washroom[1] = y;
 	}
 	public void hospital(int x,int y)
 	{
@@ -70,6 +73,9 @@ public class Map{
 		sketch.line(x+100,y+15,x+100,y+90);
 		sketch.line(x+63,y+50,x+138,y+50);
 		sketch.noStroke();
+
+		hospital[0] = x;
+		hospital[1] = y;
 	}
 	public void drawScreen()
 	{ 
@@ -113,25 +119,7 @@ public class Map{
 		handSanitizer(643,678);
 		handSanitizer(69,240);
 		handSanitizer(445,76);
-		//tables
-		table(640,30);
-		table(680,30);
-		table(640,70);
-		table(680,70);
-		table(356,237);
-		table(412,640);
-		table(834,353);
-		for(int i=0;i<4;i++)
-		{
-			table(1045,331+i*40);
-			table(28,351+i*150);
-		}
-		//benches
-		sketch.fill(157,82,32);
-		sketch.rect(221,400,75,20);
-		sketch.rect(221,490,75,20);
-		sketch.rect(603,776,100,20);
-		sketch.rect(589,216,100,20);
+
 		//trees
 		tree(252,576);
 		tree(828,553);

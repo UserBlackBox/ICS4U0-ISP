@@ -2,11 +2,11 @@ import processing.core.*;
 
 public class Main extends PApplet {
     int mode; //current scene: 1-mainMenu, 2-exit, 3-instructions, 4-tutorial, 5-game
-    MainMenu menu;
+    int prevFrameMode = 0;
+    MainMenuJava menu;
     ExitScreen exit;
     Instructions instructions;
-    Map map;
-    Map tutorial;
+    Game game;
     boolean debug = false; //toggle graphics debug mode
 
     public Main(){
@@ -21,20 +21,19 @@ public class Main extends PApplet {
         frameRate(30);
         background(0);
         surface.setTitle("Virus Game");
-        menu = new MainMenu(this, this);
+        menu = new MainMenuJava(this, this);
         exit = new ExitScreen(this);
         instructions = new Instructions(this, this);
-        map=new Map(this,this);
-        tutorial = new Tutorial (this,this);
-        draw();
+
     }
 
     public void draw(){
-        if(mode == 1) menu.drawMenu(); //main menu
+        if(mode == 1) menu.drawScreen(); //main menu
         else if(mode == 2) exit.drawScreen(); //exit screen
         else if(mode == 3) instructions.drawScreen();
-        else if (mode==4)tutorial.drawScreen();
-        else if(mode == 5) map.drawScreen();
+//        else if (mode==4)tutorial.drawScreen();
+        else if(mode == 5 && prevFrameMode!=5) game = new Game(this, this); //if game mode just started make new game
+        else if(mode == 5) game.frame(); //if already in game mode continue displaying game
         else background(0);
 
         if(debug){ //graphics debug information
@@ -50,6 +49,8 @@ public class Main extends PApplet {
             textAlign(LEFT,BOTTOM);
             text("X: "+mouseX+"\nY: "+mouseY+"\nFPS: "+frameRate,0,height);
         }
+
+        prevFrameMode = mode;
     }
 
     public static void main(String[] args){

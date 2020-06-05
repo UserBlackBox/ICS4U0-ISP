@@ -3,9 +3,7 @@ import java.util.*;
 
 public class Game {
     Map m;
-    Tutorial t;
     PApplet sketch;
-    int level;
     int[][][] paths = new int[][][]{
             {{200,205}, {372,357}, {506,306}, {720,340}, {910,200}, {910,735}, {175,735}},
             {{20,160}, {150,175}, {160,860}, {150,175}},
@@ -19,62 +17,131 @@ public class Game {
             {{718,347}, {910,200}, {530,175}, {530,285}}
     }; //possible person walking paths
     Person[] people; //person objects in game
+    long startTime; //time at start of game (milliseconds)
+    long elapsedTime = 0; //amount of time in game (milliseconds)
+    double percentage; //score
+    int hospitalChance = 0; //chance of hospital roll
+    boolean hospitalUsed = false; //has the hospital been used
+    ParkObject[] objs; //benches and tables
+    boolean finished; //has the game finished
+    Main main;
+    GameOverScreen gos;
 
-    public Game(PApplet sketch, int l){
+    public Game(PApplet sketch, Main runner){
         this.sketch = sketch;
-        level = l;
-        if(l==1) m = new Map(sketch);
-        if(l==2) m = new Tutorial();
+        m = new Map(sketch);
 
         boolean[] pathsAssigned = new boolean[paths.length]; //which paths are used
-        if(l == 1){
-            people = new Person[8]; //level has 8 people
-            for(int i=0; i<people.length; i++){
-                int rnd; //random path
-                do{
-                    rnd = new Random().nextInt(paths.length);
-                }while(pathsAssigned[rnd]); //check that no other person using that path
-                people[i] = new Person(sketch, paths[rnd]);
-                pathsAssigned[rnd] = true;
-            }
-            int rand = new Random().nextInt(people.length);
-            people[rand].setVirus(true);
-            people[rand].setInfection(100);
+        people = new Person[8]; //level has 8 people
+        for(int i=0; i<people.length; i++){
+            int rnd; //random path
+            do{
+                rnd = new Random().nextInt(paths.length);
+            }while(pathsAssigned[rnd]); //check that no other person using that path
+            people[i] = new Person(sketch, paths[rnd], m, this);
+            pathsAssigned[rnd] = true;
         }
+        int rand = new Random().nextInt(people.length); //choose random person to spawn on
+        people[rand].setVirus(true);
+        people[rand].setInfection(100);
+        objs = new ParkObject[]{new ParkObject(sketch,1, 221,400), new ParkObject(sketch, 1, 221,490), new ParkObject(sketch, 1, 603,776), new ParkObject(sketch, 1, 589,216), new ParkObject(sketch, 2, 640,30), new ParkObject(sketch, 2, 680,30), new ParkObject(sketch, 2, 640,70), new ParkObject(sketch, 2, 680,70), new ParkObject(sketch, 2, 356,237), new ParkObject(sketch, 2, 412,640), new ParkObject(sketch, 2, 834,353), new ParkObject(sketch, 2, 1045,331), new ParkObject(sketch, 2, 1045,371), new ParkObject(sketch, 2, 1045,411), new ParkObject(sketch, 2, 1045,451), new ParkObject(sketch, 2, 28,351), new ParkObject(sketch, 2, 28,501), new ParkObject(sketch, 2, 28,651), new ParkObject(sketch, 2, 28,801)};
+
+        startTime = System.currentTimeMillis(); //get start time
+        finished = false;
+        main = runner;
     }
 
     public void frame(){
-        m.drawScreen(); //draw map
-        for(Person i:people){
-            i.drawPerson(); //draw all people
-            if(sketch.frameCount % 5==0 && i.infection !=0) i.incrementInfection(1); //increment infection
-            if(sketch.frameCount % 5==0 && i.virus) i.incrementInfection(1); //double infection speed if virus on person
-        }
+        if(!finished) {
+            sketch.background(24, 139, 24);
+            m.drawScreen(); //draw map
+            for (Person i : people) {
+                i.drawPerson(); //draw all people
+                if (sketch.frameCount % 5 == 0 && i.infection != 0) i.incrementInfection(1); //increment infection
+                if (sketch.frameCount % 5 == 0 && i.virus)
+                    i.incrementInfection(1); //double infection speed if virus on person
+                i.sanitizer(); //check if in range of sanitizer or washroom and roll for chance or infection decrease
+                i.washroom();
+                i.hospital();
+            }
 
-        if(sketch.mousePressed){
-            outerLoop: for(int i=0;i<people.length;i++){
-                if(people[i].isClicked() && sketch.mouseButton == PApplet.RIGHT){
-                    for(Person j: people){
-                        if(PApplet.dist(j.getCoor()[0],j.getCoor()[1],people[i].getCoor()[0],people[i].getCoor()[1])<37 && j.virus){
-                            j.virus = false;
-                            people[i].virus = true;
-                            break outerLoop;
-                        }
-                    }
-                }
-                if(people[i].isClicked() && sketch.mouseButton == PApplet.LEFT && people[i].infection==0){
-                    for(Person j: people){
-                        if(PApplet.dist(j.getCoor()[0],j.getCoor()[1],people[i].getCoor()[0],people[i].getCoor()[1])<37 && !j.equals(people[i]) && (j.infection>=100 || j.virus)){
-                            people[i].setInfection(5);
-                            break outerLoop;
+            for (ParkObject i : objs) {
+                i.drawObject(); //draw benches and tables
+                if (i.isClicked() && sketch.mouseButton == PApplet.RIGHT) { //if object clicked
+                    for (Person j : people) { //find people in range with virus
+                        if (i.personInRange(j) && j.virus) {
+                            j.setVirus(false);
+                            i.setVirus(true);
+                            break;
                         }
                     }
                 }
             }
-        }
 
-        for(Person i:people){
-            if(sketch.frameCount % 2==0) i.calc(); //calculate person's next coordinates
+            if (sketch.mousePressed) { //check if mouse pressed in game
+                outerLoop:
+                //set outer loop for double break
+                for (Person i : people) { //loop through Person entities
+                    if (i.isClicked() && sketch.mouseButton == PApplet.RIGHT) { //if right click on person
+                        for (Person j : people) { //loop through people for in range virus carrier
+                            if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && j.virus) { //if carrier in range to target
+                                j.virus = false; //virus jump from one person to other
+                                i.virus = true;
+                                break outerLoop; //break both loops
+                            }
+                        }
+                        for (ParkObject j : objs) { //object carriers
+                            if (j.personInRange(i) && j.virus) { //object in range and carrier
+                                j.setVirus(false);
+                                i.setVirus(true);
+                                break outerLoop;
+                            }
+                        }
+                    }
+                    if (i.isClicked() && sketch.mouseButton == PApplet.LEFT && i.infection == 0) { //if left click and target is healthy
+                        for (Person j : people) { //look for in range 100% infected Person
+                            if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && !j.equals(i) && (j.infection >= 100 || j.virus)) { //if virus carrier or fully infected in spread range
+                                i.setInfection(5); //start infection on target
+                                break outerLoop; //double break
+                            }
+                        }
+                    }
+                }
+            }
+
+            double infectionSum = 0;
+            for (Person i : people) {
+                if (sketch.frameCount % 2 == 0) i.calc(); //calculate person's next coordinates
+                infectionSum += i.infection; //sum of Person infections
+            }
+            percentage = infectionSum / (100 * people.length) * 100; //calculate infection percentage
+            sketch.fill(255);
+            sketch.textFont(sketch.loadFont("Graph-18.vlw"),18);
+            sketch.textAlign(PApplet.LEFT,PApplet.BOTTOM);
+            long timeLeft = 600000-elapsedTime;
+            int minutes = (int) timeLeft/60000;
+            timeLeft %= 60000;
+            int seconds = (int) timeLeft/1000;
+            String sSeconds = Integer.toString(seconds);
+            if(sSeconds.length()==1) sSeconds = "0"+sSeconds;
+            sketch.text(Math.round(percentage*10.0)/10.0 + "% infected\nTime left: 0"+minutes+":"+sSeconds, 970, 890);
+
+            if (percentage > 50 && !hospitalUsed) hospitalChance = 100; //hospital opens halfway through game
+            if (hospitalUsed) hospitalChance = 1; //hospital chance drops after first use
+
+            elapsedTime = System.currentTimeMillis() - startTime; //calculate elapsed time
+            if (elapsedTime >= 600000){
+                finished = true;
+                gos = new GameOverScreen(sketch, true, elapsedTime, main);
+            }
+
+            if (percentage >=100){
+                finished = true;
+                gos = new GameOverScreen(sketch, true, elapsedTime, main);
+            }
+        }
+        else if(finished){
+            gos.drawScreen();
         }
     }
 }

@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.GridBagLayout;
 import javax.swing.*;
+import processing.core.*;
+
 public class MainMenuJava extends JPanel implements ActionListener {
 	JButton tutorialButton,gameButton,instructionsButton,exitButton;
 	GridBagConstraints gbc;
@@ -9,8 +11,10 @@ public class MainMenuJava extends JPanel implements ActionListener {
 	JFrame frame;
 	JLabel title;
 	Main runner;
-	public  MainMenuJava(Main runner)
-	{   this.runner=runner;
+	PApplet sketch;
+
+	public MainMenuJava(Main runner, PApplet sketch){
+		this.runner=runner;
 		p=new JPanel();
 		frame= new JFrame("Virus Game");
 		tutorialButton = new JButton("Tutorial");
@@ -18,9 +22,10 @@ public class MainMenuJava extends JPanel implements ActionListener {
 		instructionsButton= new JButton("Instructions");
 		exitButton=new JButton("Exit");
 		title= new JLabel("Virus Game");
+		this.sketch = sketch;
 	}
-	public void drawScreen()
-	{	
+
+	public void drawScreen(){
 		title.setForeground(Color.white);
 		title.setFont(new Font("Graph-48.vlw",Font.BOLD,18));
 		gbc= new GridBagConstraints();
@@ -56,15 +61,17 @@ public class MainMenuJava extends JPanel implements ActionListener {
 		frame.setSize(500,500);
 		frame.getContentPane().setBackground(new Color(56,88,128));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
 		tutorialButton.addActionListener(this);
 		gameButton.addActionListener(this);
 		instructionsButton.addActionListener(this);
 		exitButton.addActionListener(this);
+
+		sketch.frame.setVisible(false);
+		sketch.noLoop();
+		frame.setVisible(true);
 	}
 
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()== gameButton)
 		{
@@ -88,7 +95,8 @@ public class MainMenuJava extends JPanel implements ActionListener {
 			//frame.getContentPane().setBackground(Color.red);
 		}
 		frame.setVisible(false); 
-		frame.dispose(); 
+		sketch.loop();
+		sketch.frame.setVisible(true);
 	}
 
 }

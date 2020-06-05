@@ -37,7 +37,7 @@ public class Instructions {
         sketch.textFont(font24,24);
         sketch.text("The goal of the game is to infect a certain percentage of people in the space before the vaccine is developed",275,220,500,500);
         sketch.text("People can be infected by having the virus jump between people when the source is fully infected and in range. Each person has a meter displaying how infected they are and they can also go to special locations to disinfect. You can also infect objects to infect people nearby. As the game progresses, people will start wearing masks to make infection mor difficult", 275, 470,500,500);
-        sketch.text("In-game you will recieve one special item that can only be used once\nVirus Mutation - increase virus meter by 25% and increase spread\nAirborne - Teleport to an other person\nVirus Environment - Infect an extra item", 825, 270, 500, 500);
+        sketch.text("In-game you will receive one special item that can only be used once\nVirus Mutation - increase virus meter by 25% and increase spread\nAirborne - Teleport to an other person\nVirus Environment - Infect an extra item", 825, 270, 500, 500);
         sketch.text("Don't use special items right away, save them for when they will be the most effective\nStudy the paths that people take\nInfect objects located in busy areas", 825, 500, 500, 500);
 
         sketch.fill(200,0,0); //back button
