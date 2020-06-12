@@ -66,6 +66,8 @@ public class MainMenuJava extends JPanel implements ActionListener {
 		instructionsButton.addActionListener(this);
 		exitButton.addActionListener(this);
 
+		runner.prevFrameMode = 1;
+		runner.play.playMusic(1);
 		sketch.frame.setVisible(false); //hide PApplet window
 		sketch.noLoop(); //stop PApplet draw() loop
 		frame.setVisible(true); //show main menu window

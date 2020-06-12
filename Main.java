@@ -18,6 +18,8 @@ public class Main extends PApplet {
 
     public Main(){
         mode = 1;
+        play= new Music(musicList);
+        play.playMusic(1);
     }
 
     public int getMode()
@@ -26,8 +28,6 @@ public class Main extends PApplet {
     }
     public void settings(){
        size(1100,900);
-       play= new Music(musicList);
-       play.playMusic(1);
     }
 
     public void setup(){
@@ -41,15 +41,7 @@ public class Main extends PApplet {
     }
 
     public void draw(){
-        if(mode == 1) 
-        {
-        	// figure out why it does not change.
-        	if(prevFrameMode != mode)
-        	{
-        		play.playMusic(1);
-        	}
-        	menu.drawScreen(); //main menu
-        }
+        if(mode == 1) menu.drawScreen(); //main menu
         else if(mode == 2)
         {
         	if(prevFrameMode != mode)
