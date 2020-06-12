@@ -1,4 +1,7 @@
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import javax.sound.sampled.*;
 
 public class Music {
@@ -26,28 +29,21 @@ public class Music {
 			clip.close();
 		}
 
-		try
-		{
+		try {
 			musicLocation=album[i];
 			musicRunning=album[i];
-			File musicPath = new File (musicLocation);
-			if(musicPath.exists())
-			{	
-				AudioInputStream audioInput= AudioSystem.getAudioInputStream(musicPath);
-				AudioFormat format =audioInput.getFormat();
-				DataLine.Info info= new DataLine.Info(Clip.class, format);
-				clip = (Clip) AudioSystem.getLine(info);
-				clip.open(audioInput);
-				clip.start();
-				clip.loop(Clip.LOOP_CONTINUOUSLY);
-			}
-			else 
-			{
-				System.out.println("we dont have it ");
-			}
+			InputStream musicPath = getClass().getResourceAsStream(musicLocation);
+			musicPath = new BufferedInputStream(musicPath);
+			AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+			AudioFormat format = audioInput.getFormat();
+			DataLine.Info info = new DataLine.Info(Clip.class, format);
+			clip = (Clip) AudioSystem.getLine(info);
+			clip.open(audioInput);
+			clip.start();
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+
 		}
-		catch(Exception ex)
-		{
+		catch(Exception ex) {
 			ex.printStackTrace();
 		}
 		musicCheck=true;
