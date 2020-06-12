@@ -71,7 +71,8 @@ public class Map{
 		hospital[1] = y;
 	} 
 	public void drawScreen()
-	{ 
+	{
+		sketch.rectMode(PApplet.CORNER);
 		sketch.noStroke();
 		sketch.fill(24,139,24);//dark green
 		sketch.rect(0,0,1100,900);

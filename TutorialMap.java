@@ -15,6 +15,7 @@ public class TutorialMap extends Map
 
 	public void drawScreen()
 	{
+		sketch.rectMode(PApplet.CORNER);
 		sketch.noStroke();
 		sketch.fill(97);
 		sketch.rect(0,0,1100,900);
