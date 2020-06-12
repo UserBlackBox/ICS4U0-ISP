@@ -75,7 +75,6 @@ public class MainMenuJava extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()== gameButton)
 		{
-		
 			runner.mode=5;
 			//frame.getContentPane().setBackground(Color.black);
 		}

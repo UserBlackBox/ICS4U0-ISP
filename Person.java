@@ -14,6 +14,7 @@ public class Person {
     boolean hospital = false; //track if in range of hospital
     Map map;
     Game game;
+    Tutorial tutorial;
 
     public Person(PApplet sketch, int[][] p, Map m, Game g){
         int rnd = new Random().nextInt(p.length);
@@ -29,7 +30,19 @@ public class Person {
         map = m;
         game = g;
     }
-
+    public Person(PApplet sketch, int[][] p,Tutorial t){
+        int rnd = 0;
+        path = p;
+        x = path[0][0]; 
+        y = path[0][1];
+        if(rnd == p.length-1) pathIndex = 0; //select the target walking point
+        else pathIndex = rnd+1;
+        virus = false; //not carrying
+        infection = 0; //healthy
+        this.sketch = sketch; //set PApplet to draw to
+        speed = 2.5;
+        tutorial = t;
+    }
     public void drawPerson(){
         sketch.fill(255,243,0); //set colors of person
         sketch.stroke(0);
@@ -55,10 +68,24 @@ public class Person {
     public void setVirus(boolean b){ //set if person is carrying player virus
         virus = b;
     }
+    public boolean hasVirus()
+    {
+    	if(virus)
+    	return true;
+    	else 
+    	return false;
+    }
 
     public void setInfection(int p){
         infection = p;
     } //set infection level
+    public boolean isInfected()
+    {
+    	if(infection!=0)
+    		return true;
+    	else 
+    		return false;
+    }
 
     public void incrementInfection(int p){ //increase infection
         if(infection+p > 100) infection = 100; //cant infect more than 100%

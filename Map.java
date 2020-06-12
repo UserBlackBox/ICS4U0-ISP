@@ -69,7 +69,7 @@ public class Map{
 
 		hospital[0] = x; //set coordinates for Person class
 		hospital[1] = y;
-	}
+	} 
 	public void drawScreen()
 	{ 
 		sketch.noStroke();
@@ -112,7 +112,6 @@ public class Map{
 		handSanitizer(643,678);
 		handSanitizer(69,240);
 		handSanitizer(445,76);
-
 		//trees
 		tree(252,576);
 		tree(828,553);

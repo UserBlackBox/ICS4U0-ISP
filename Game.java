@@ -2,7 +2,7 @@ import processing.core.*;
 import java.util.*;
 
 public class Game {
-    Map m; //map
+    Map m; //map 
     PApplet sketch; //PApplet window
     int[][][] paths = new int[][][]{
             {{200,205}, {372,357}, {506,306}, {720,340}, {910,200}, {910,735}, {175,735}},
@@ -46,7 +46,6 @@ public class Game {
         people[rand].setInfection(100); //set to full infection
         //benches and tables
         objs = new ParkObject[]{new ParkObject(sketch,1, 221,400), new ParkObject(sketch, 1, 221,490), new ParkObject(sketch, 1, 603,776), new ParkObject(sketch, 1, 589,216), new ParkObject(sketch, 2, 640,30), new ParkObject(sketch, 2, 680,30), new ParkObject(sketch, 2, 640,70), new ParkObject(sketch, 2, 680,70), new ParkObject(sketch, 2, 356,237), new ParkObject(sketch, 2, 412,640), new ParkObject(sketch, 2, 834,353), new ParkObject(sketch, 2, 1045,331), new ParkObject(sketch, 2, 1045,371), new ParkObject(sketch, 2, 1045,411), new ParkObject(sketch, 2, 1045,451), new ParkObject(sketch, 2, 28,351), new ParkObject(sketch, 2, 28,501), new ParkObject(sketch, 2, 28,651), new ParkObject(sketch, 2, 28,801)};
-
         startTime = System.currentTimeMillis(); //get start time
         finished = false; //game over
         main = runner;

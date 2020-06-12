@@ -3,6 +3,7 @@ import processing.core.*;
 public class Window extends PApplet{
     boolean debug = false; //toggle graphics debug mode
     Game game;
+    Main runner;
 
     public void settings(){
         size(1100,900);
@@ -12,7 +13,7 @@ public class Window extends PApplet{
         frameRate(30);
         background(0);
         surface.setTitle("Virus Game");
-        game = new Game(this, 1);
+        game = new Game(this, runner);
         draw();
     }
 
@@ -34,9 +35,9 @@ public class Window extends PApplet{
         }
     }
 
-    public static void main(String[] args){
-        String[] processingArgs = {"Window"};
-        Window mySketch = new Window();
-        PApplet.runSketch(processingArgs, mySketch);
-    }
+//    public static void main(String[] args){
+//        String[] processingArgs = {"Window"};
+//        Window mySketch = new Window();
+//        PApplet.runSketch(processingArgs, mySketch);
+//    }
 }

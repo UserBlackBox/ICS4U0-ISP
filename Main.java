@@ -5,7 +5,14 @@ public class Main extends PApplet {
     int prevFrameMode = 0;
     MainMenuJava menu;
     ExitScreen exit;
-    Instructions instructions;
+    Instructions instructions; 
+    TutorialMap tutorialMap;
+    Tutorial tutorial;
+    boolean musicCheck=true;
+    Music play;
+    String[] musicList= {"ISP music/2018-05-19_-_Video_Game_Adventure_-_David_Fesliyan.wav","ISP music/2018-06-13_-_Paranoia_-_David_Fesliyan.wav",
+    "ISP music/2019-02-25_-_Poisonous_-_David_Fesliyan.wav","ISP music/2019-03-17_-_Too_Crazy_-_David_Fesliyan.wav","ISP music/2019-10-06_-_Villainous_-_David_Fesliyan.wav",
+    "ISP music/Slower-Tempo-2020-01-14_-_Evil_Rising_-_David_Fesliyan.wav"};
     Game game;
     boolean debug = false; //toggle graphics debug mode
 
@@ -13,8 +20,14 @@ public class Main extends PApplet {
         mode = 1;
     }
 
+    public int getMode()
+    {
+    	return mode;
+    }
     public void settings(){
-        size(1100,900);
+       size(1100,900);
+       play= new Music(musicList);
+       play.playMusic(1);
     }
 
     public void setup(){
@@ -24,15 +37,50 @@ public class Main extends PApplet {
         menu = new MainMenuJava(this, this);
         exit = new ExitScreen(this);
         instructions = new Instructions(this, this);
-
+        tutorialMap=new TutorialMap(this,tutorial);
     }
 
     public void draw(){
-        if(mode == 1) menu.drawScreen(); //main menu
-        else if(mode == 2) exit.drawScreen(); //exit screen
-        else if(mode == 3) instructions.drawScreen();
-//        else if (mode==4)tutorial.drawScreen();
-        else if(mode == 5 && prevFrameMode!=5) game = new Game(this, this); //if game mode just started make new game
+        if(mode == 1) 
+        {
+        	// figure out why it does not change.
+        	if(prevFrameMode != mode)
+        	{
+        		play.playMusic(1);
+        	}
+        	menu.drawScreen(); //main menu
+        }
+        else if(mode == 2)
+        {
+        	if(prevFrameMode != mode)
+        	{
+        		play.playMusic(2);
+        	}
+        	exit.drawScreen(); //exit screen
+        }
+        else if(mode == 3)
+        {
+        	if(prevFrameMode != mode)
+        	{
+        		play.playMusic(5);
+        	}
+        	instructions.drawScreen(); //instructions
+        }
+        else if (mode==4) 
+        {
+        	if(prevFrameMode != 4)
+        	{
+        		play.playMusic(3);
+        		tutorial= new Tutorial(this,tutorialMap,this);
+        	}
+        	tutorial.frame(); // tutorial
+
+        }
+        else if(mode == 5 && prevFrameMode!=5) 
+        {
+        	play.playMusic(2);
+        	game = new Game(this, this); //if game mode just started make new game
+        }
         else if(mode == 5) game.frame(); //if already in game mode continue displaying game
         else background(0);
 

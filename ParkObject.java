@@ -1,8 +1,9 @@
 import processing.core.*;
-
+  
 public class ParkObject {
     PApplet sketch;
     boolean virus; //is carrying virus
+    //boolean gotInfected; // Has the virus infected the table once
     int type; //1 - bench, 2 - table
     int x,y;
 
@@ -43,7 +44,7 @@ public class ParkObject {
     }
 
     public void setVirus(boolean v){
-        virus = v;
+    	virus = v;
     }
 
     public boolean personInRange(Person p){
