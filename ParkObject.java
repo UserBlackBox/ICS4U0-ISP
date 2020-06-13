@@ -28,8 +28,12 @@ public class ParkObject {
         sketch.stroke(255,0,0);
         sketch.strokeWeight(2);
         if(virus) {
-            sketch.line(x + 7.5f, y + 7.5f, x + 17.5f, y + 17.5f);
-            sketch.line(x + 7.5f, y + 17.5f, x + 17.5f, y + 7.5f);
+            sketch.fill(255,106,0); //set color of infection
+            sketch.ellipse(x+12.5f, y+12.5f,20,20);
+
+            sketch.stroke(255,106,0,80);
+            sketch.fill(255,106,0,20);
+            sketch.rect(x-12.5f, y-12.5f, 50, 50);
         }
     }
     public void bench(int x, int y){
@@ -38,8 +42,12 @@ public class ParkObject {
         sketch.stroke(255,0,0);
         sketch.strokeWeight(2);
         if(virus) {
-            sketch.line(x + 27.5f, y + 5, x + 40, y + 15);
-            sketch.line(x + 27.5f, y + 15, x + 40, y + 5);
+            sketch.fill(255,106,0); //set color of infection
+            sketch.ellipse(x+33.75f, y+10,20,20);
+
+            sketch.stroke(255,106,0,80);
+            sketch.fill(255,106,0,20);
+            sketch.rect(x-12.5f,y-12.5f,100,45);
         }
     }
 

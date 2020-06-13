@@ -12,6 +12,8 @@ public class Person {
     boolean sanitizer = false; //track if in range of sanitizer
     boolean washroom = false; //track if in range of washroom
     boolean hospital = false; //track if in range of hospital
+    boolean mask = false; //person wearing a mask
+    long maskStart;
     Map map;
     Game game;
     Tutorial tutorial;
@@ -63,13 +65,19 @@ public class Person {
             sketch.fill(255,106,0,20);
             sketch.ellipse(x,y,50,50);
         }
+        if(mask){
+            sketch.rectMode(PApplet.CENTER);
+            sketch.stroke(224,51,230);
+            sketch.fill(255);
+            sketch.rect(x,y,20,5);
+            sketch.rectMode(PApplet.CORNER);
+        }
     }
 
     public void setVirus(boolean b){ //set if person is carrying player virus
         virus = b;
     }
-    public boolean hasVirus()
-    {
+    public boolean hasVirus(){
     	if(virus)
     	return true;
     	else 
@@ -168,4 +176,8 @@ public class Person {
         if(!(x>map.hospital[0]-42 && x<map.hospital[0]+242 && y>map.hospital[1]-42 && y<map.hospital[1]+200)) hospital = false;
     }
 
+    public void addMask(){
+        mask=true;
+        maskStart=System.currentTimeMillis();
+    }
 }
