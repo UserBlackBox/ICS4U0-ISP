@@ -18,6 +18,13 @@ public class Person {
     Game game;
     Tutorial tutorial;
 
+    /**
+     * Person constructor for game
+     * @param sketch screen to draw to
+     * @param p path to walk
+     * @param m map of game
+     * @param g currently running game
+     */
     public Person(PApplet sketch, int[][] p, Map m, Game g){
         int rnd = new Random().nextInt(p.length);
         path = p;
@@ -32,6 +39,13 @@ public class Person {
         map = m;
         game = g;
     }
+
+    /**
+     * Person constructor for tutorial
+     * @param sketch screen to draw to
+     * @param p path to walk
+     * @param t tutorial object currently running
+     */
     public Person(PApplet sketch, int[][] p,Tutorial t){
         int rnd = 0;
         path = p;
@@ -45,6 +59,10 @@ public class Person {
         speed = 2.5;
         tutorial = t;
     }
+
+    /**
+     * draw the person to screen
+     */
     public void drawPerson(){
         sketch.fill(255,243,0); //set colors of person
         sketch.stroke(0);
@@ -74,19 +92,34 @@ public class Person {
         }
     }
 
-    public void setVirus(boolean b){ //set if person is carrying player virus
+    /**
+     * set person virus carrying
+     * @param b carrying status
+     */
+    public void setVirus(boolean b){
         virus = b;
     }
+
+    /**
+     * check if person is carrying virus
+     * @return virus
+     */
     public boolean hasVirus(){
-    	if(virus)
-    	return true;
-    	else 
-    	return false;
+    	return virus;
     }
 
+    /**
+     * set infection amount of person
+     * @param p percentage to set infection to
+     */
     public void setInfection(int p){
         infection = p;
     } //set infection level
+
+    /**
+     * check if person is infected
+     * @return boolean for if the person has infection
+     */
     public boolean isInfected()
     {
     	if(infection!=0)
@@ -95,17 +128,28 @@ public class Person {
     		return false;
     }
 
+    /**
+     * increase infection of person
+     * @param p amount to increase infection
+     */
     public void incrementInfection(int p){ //increase infection
         if(infection+p > 100) infection = 100; //cant infect more than 100%
         else infection+=p;
     }
 
-    public void decreaseInfection(int p){ //decrease infection
+    /**
+     * decrease infection of person
+     * @param p amount to decrease infection
+     */
+    public void decreaseInfection(int p){
         if(infection-p < 0) infection = 0; //if decreasing lower than 0 set to 0
         else infection-=p;
     }
 
-    public void calc(){ //calculate next walking target or coordinates
+    /**
+     * calculate nex walking target or coordinates of next frame
+     */
+    public void calc(){
         if(x == path[pathIndex][0] && y == path[pathIndex][1]){ //check if arrived at target
             if(pathIndex == path.length-1) pathIndex = 0; //if at end of path set target to beginning
             else pathIndex+=1; //set to next target
@@ -127,10 +171,17 @@ public class Person {
         return new float[]{x,y};
     } //get coordinates
 
+    /**
+     * check if person is clicked
+     * @return boolean if mouse cursor on person and pressed
+     */
     public boolean isClicked(){ //check if person has been clicked
         return (sketch.mousePressed && PApplet.dist(sketch.mouseX,sketch.mouseY,x,y) <= 25);
     }
 
+    /**
+     * check if person in range of sanitizer station and perform roll for heal
+     */
     public void sanitizer(){
         boolean inRange = false;
         for(Integer[] i : map.sanitizer){ //loop through all sanitizer stations in map
@@ -149,6 +200,9 @@ public class Person {
         if(!inRange) sanitizer=false; //if out of range of all stations reset boolean
     }
 
+    /**
+     * check if person in range of washroom and do roll for heal
+     */
     public void washroom(){
         if(x>map.washroom[0]-42 && x<map.washroom[0]+242 && y>map.washroom[1]-42 && y<map.washroom[1]+142 && !washroom){
             washroom=true; //prevent reroll until out of range of washroom
@@ -162,6 +216,9 @@ public class Person {
         if(!(x>map.washroom[0]-42 && x<map.washroom[0]+242 && y>map.washroom[1]-42 && y<map.washroom[1]+142)) washroom = false;
     }
 
+    /**
+     * check if person in range of hospital and run roll for heal
+     */
     public void hospital(){
         if(x>map.hospital[0]-42 && x<map.hospital[0]+242 && y>map.hospital[1]-42 && y<map.hospital[1]+200 && !hospital){
             hospital=true; //prevent reroll until out of range of hospital
@@ -176,6 +233,9 @@ public class Person {
         if(!(x>map.hospital[0]-42 && x<map.hospital[0]+242 && y>map.hospital[1]-42 && y<map.hospital[1]+200)) hospital = false;
     }
 
+    /**
+     * add a mask to the person and set the time when mask was aquired
+     */
     public void addMask(){
         mask=true;
         maskStart=System.currentTimeMillis();

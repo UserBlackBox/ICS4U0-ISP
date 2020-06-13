@@ -28,6 +28,11 @@ public class Game {
     GameOverScreen gos; //game over screen to display
     int infectionNum = 0;
 
+    /**
+     * Constructor for game that sets up game variables
+     * @param sketch screen to draw to
+     * @param runner main window object
+     */
     public Game(PApplet sketch, Main runner){
         this.sketch = sketch;
         m = new Map(sketch); //create map
@@ -61,6 +66,9 @@ public class Game {
         main = runner;
     }
 
+    /**
+     * calculations and graphics for each frame
+     */
     public void frame(){
         if(!finished) {
             sketch.background(24, 139, 24); //clear screen

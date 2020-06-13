@@ -7,6 +7,13 @@ public class ParkObject {
     int type; //1 - bench, 2 - table
     int x,y;
 
+    /**
+     * Constructor for a ParkObject
+     * @param sketch window to draw to
+     * @param t type of object, 1 for bench, 2 for table
+     * @param x x coordinate of object
+     * @param y y coordinate of object
+     */
     public ParkObject(PApplet sketch, int t, int x, int y){
         type = t;
         this.sketch = sketch;
@@ -14,12 +21,20 @@ public class ParkObject {
         this.y = y;
     }
 
+    /**
+     * draws the object of this class to the screen
+     */
     public void drawObject(){
         sketch.noStroke();
         if(type==1) bench(x,y);
         if(type==2) table(x,y);
     }
 
+    /**
+     * Draws table object
+     * @param x x-coordinate of table
+     * @param y y-coordinate of table
+     */
     public void table(int x,int y) {
         sketch.fill(140,69,22);
         sketch.rect(x,y,25,25);
@@ -36,6 +51,12 @@ public class ParkObject {
             sketch.rect(x-12.5f, y-12.5f, 50, 50);
         }
     }
+
+    /**
+     * draws bench object
+     * @param x x-coordinate of bench
+     * @param y y-coordinate of bench
+     */
     public void bench(int x, int y){
         sketch.fill(157,82,32);
         sketch.rect(x,y,75,20);
@@ -51,14 +72,27 @@ public class ParkObject {
         }
     }
 
+    /**
+     * sets whether or not the object is infected
+     * @param v true or false is infected
+     */
     public void setVirus(boolean v){
     	virus = v;
     }
 
+    /**
+     * sees if person is in range of object
+     * @param p person to calculate distance
+     * @return true if in range
+     */
     public boolean personInRange(Person p){
         return (type == 2 && p.x <= x + 50 && p.x >= x - 25 && p.y <= y + 50 && p.y >= y - 25) || (type==1 && p.x<=x+100 && p.x>=x-25 && p.y<=y+45 && p.y>=y-25);
     }
 
+    /**
+     * is the object mouse clicked
+     * @return boolean if mouse cursor on object and pressed
+     */
     public boolean isClicked(){
         return sketch.mousePressed && (type == 1 && sketch.mouseX >= x && sketch.mouseX <= x+75 && sketch.mouseY >= y && sketch.mouseY <= y+20) || (type == 2 && sketch.mouseX >= x && sketch.mouseX <= x+25 && sketch.mouseY >= y && sketch.mouseY <= y+25);
     }
