@@ -19,9 +19,12 @@ public class Tutorial
 	};
     long startTime;   //in milliseconds
     long elapsedTime;
+    long endTime;
     int fps=30;
-	boolean finished; //has the game finished
+    boolean start; //did the tutorial screen run 
+	boolean finished; //has the tutorial finished
 	boolean gates[]=new boolean[5];
+	TutorialScreens gg;
 	public Tutorial(PApplet sketch,TutorialMap m,Main runner)
 	{
 		this.sketch=sketch;
@@ -34,6 +37,7 @@ public class Tutorial
 		startTime = System.currentTimeMillis(); //get start time
 		elapsedTime = System.currentTimeMillis() - startTime;
 		finished = false; //game over
+		start=false;
 		for(int i=0;i<gates.length;i++)
 		{
 			gates[i]=true;
@@ -41,6 +45,7 @@ public class Tutorial
 		main = runner;
 		this.m=m;
 		m.drawScreen();
+		gg=new TutorialScreens(sketch,runner);
 	}
 	
 	public void frame()
@@ -87,15 +92,16 @@ public class Tutorial
 		{
 			//System.out.println(elapsedTime);
 			slide(" You may only infect people inside your range showed by the orange circle."+
-					" Infect and jump to another person by right clicking and only infect a person by left clicking." 
+					" Infect and jump to another person by right clicking and only infect a person by left clicking. X marks the spot(you);)" 
 					,"How to infect");
-			sketch.text("Try left clicking this person when you are in range. In the tutorial you may have to click the person a bit longer to infect him", 5, 250, 150, 350);			
 			sketch.fill(200,0,0);
 			sketch.rect(131,341,20,40);	
 			sketch.triangle(111, 381, 141, 396, 171, 381);
+			sketch.fill(0);
+			sketch.text("Try left clicking this person when you are in range. In the tutorial you may have to click the person a few times and a bit longer to infect him", 5, 250, 150, 350);			
 			if(people[2].isInfected())
 			{
-				startTime= System.currentTimeMillis();
+				endTime=elapsedTime;
 				fps=30;
 				sketch.frameRate(fps);
 				gates[0]=false;
@@ -105,35 +111,57 @@ public class Tutorial
 				fps=fps-1;
 				sketch.frameRate(fps);
 			}
-			if(elapsedTime<20000&&elapsedTime>18000)
+			if(elapsedTime<20000&&elapsedTime>19000)
 			{
-				startTime= System.currentTimeMillis();
 				fps=30;
+				sketch.frameRate(fps);
 				gates[0]=false;
+				people[2].setInfection(10);
+				endTime=elapsedTime;
 			}
 		}
-		if(elapsedTime<20000 && elapsedTime>3000&&gates[1] && !gates[0])
+		else if(elapsedTime<endTime+20000 && elapsedTime>endTime+3000 && gates[1] && !gates[0])
 		{
-			//System.out.println(elapsedTime);
-			if(elapsedTime>8000)
+			
+			if(elapsedTime>endTime+8000)
 			{
 				people[2].setInfection(100);
 			}
-			if(elapsedTime>8000 && elapsedTime<9000)
+			if(elapsedTime>24000)
 			{
-				people[5].setInfection(1);
+				people[2].setInfection(100);
 			}
 			slide(" After a while an infected person will beomce fully infected (they are an orange person)."
-					+ " These people can then also infect others without your help"
+					+" These people can then also infect others with your help."
+					+" To infect somebody just left click them."
 					,"Virus Spread");
-			if(elapsedTime<20000&&elapsedTime>19000)
+			sketch.fill(200,0,0);
+			sketch.rect(131,341,20,40);	
+			sketch.triangle(111, 381, 141, 396, 171, 381);
+			sketch.fill(0);
+			sketch.text("Try left clicking this person when you are in range. In the tutorial you may have to click the person a few times and a bit longer to infect him", 5, 250, 150, 350);			
+			if(people[5].isInfected())
 			{
-				startTime= System.currentTimeMillis();
+				endTime=elapsedTime;
+				fps=30;
+				sketch.frameRate(fps);
+				gates[1]=false;
+			}
+			if(fps!=1 && elapsedTime>endTime+5600)
+			{
+				fps=fps-1;
+				sketch.frameRate(fps);
+			}
+			if(elapsedTime<endTime+20000&&elapsedTime>endTime+18000)
+			{
+				endTime=elapsedTime;
+				fps=30;
+				sketch.frameRate(fps);
 				gates[1]=false;
 			}
 			
 		}
-		if(elapsedTime<20000 && gates[2] && !gates[1])
+		else if(elapsedTime<endTime+20000 && elapsedTime>endTime+3000 && gates[2] && !gates[1])
 		{
 			slide(" Once people are infected its not a dead end for them."
 					+ " Their are different methods for them to try and get rid of the virus to."
@@ -141,6 +169,14 @@ public class Tutorial
 			sketch.text("Hand Sanitizer = least effective, most usable",25,600,100,650);
 			sketch.text("Washroom = middle effectiveness, middle usablity",100,250,200,350);
 			sketch.text("Hospital = Highly effective, rare usability",525,550,600,625);
+			if(elapsedTime<endTime+20000&&elapsedTime>endTime+18000)
+			{
+				endTime=elapsedTime;
+				finished=true;
+			}
+		}
+		else if (finished==true){
+			gg.drawScreenOut();
 		}
 		
 	}
