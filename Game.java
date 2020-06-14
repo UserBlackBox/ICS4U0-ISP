@@ -45,8 +45,7 @@ public class Game {
         this.sketch = sketch;
         m = new Map(sketch); //create map
         boolean[] pathsAssigned = new boolean[paths.length]; //which paths are used
-        //powerupType = new Random().nextInt(3);
-        powerupType=2;
+        powerupType = new Random().nextInt(3);
         powerupDuration=30000;
         powerupUsed = false;
         powerupDone=false;
@@ -55,7 +54,7 @@ public class Game {
         	if(powerupType==0)
         	{
         		powerupName= "Airborne Virus";	
-        		powerupInUse[1]=false;
+        		powerupInUse[0]=false;
         	}
         	else if(powerupType==1)
         	{
@@ -180,7 +179,7 @@ public class Game {
                 if (sketch.frameCount % 5 == 0 && i.infection != 0) i.incrementInfection(1); //increment infection
                 if (sketch.frameCount % 5 == 0 && i.virus)
                 i.incrementInfection(1); //double infection speed if virus on person
-                if(powerupInUse[1])
+                if(powerupInUse[1] || powerupType!=1)
                 {
                 i.sanitizer(); //check if in range of sanitizer or washroom and roll for chance or infection decrease
                 i.washroom();
@@ -204,11 +203,12 @@ public class Game {
                     if (i.isClicked() && sketch.mouseButton == PApplet.LEFT && i.infection == 0) { //if left click and target is healthy
                         for (Person j : people) { //look for in range 100% infected Person
                             if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && !j.equals(i) && (j.infection >= 100 || j.virus)) { //if virus carrier or fully infected in spread range
-                                if(powerupInUse[2])
-                                {
-                            	if(j.mask && !j.virus ){
-                                    continue;
+                                if(j.virus){
+                                    i.setInfection(5);
+                                    break outerLoop;
                                 }
+                                if((j.mask || i.mask) && powerupInUse[2]){
+                                    continue;
                                 }
                                 i.setInfection(5); //start infection on target
                                 break outerLoop; //double break
@@ -237,11 +237,6 @@ public class Game {
                 }
             }
             if(infected>infectionNum) infectionNum=infected;
-            for(Person i:people){
-                if(System.currentTimeMillis() - i.maskStart > 90000){
-                    i.mask = false;
-                }
-            }
 
             double infectionSum = 0; //sum of percentages of all people
             for (Person i : people) {
@@ -261,7 +256,7 @@ public class Game {
             sketch.text(Math.round(percentage*10.0)/10.0 + "% infected\nTime left: 0"+minutes+":"+sSeconds, 970, 890); //percent and time overlay
 
             if (percentage > 50 && !hospitalUsed) hospitalChance = 100; //hospital opens halfway through game
-            if (hospitalUsed) hospitalChance = 1; //hospital chance drops after first use
+            if (hospitalUsed) hospitalChance = 2; //hospital chance drops after first use
 
             elapsedTime = System.currentTimeMillis() - startTime; //calculate elapsed time
             if (elapsedTime >= 600000){ //if over 10 minutes exit game as fail

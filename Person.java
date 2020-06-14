@@ -13,7 +13,6 @@ public class Person {
     boolean washroom = false; //track if in range of washroom
     boolean hospital = false; //track if in range of hospital
     boolean mask = false; //person wearing a mask
-    long maskStart;
     Map map;
     Game game;
     Tutorial tutorial;
@@ -188,9 +187,12 @@ public class Person {
             if(PApplet.dist(x,y,i[0],i[1])<=50 && !sanitizer){
                 sanitizer=true; //set boolean to true to prevent reroll until out of range of all stations
                 int rnd = new Random().nextInt(100);
+                if(rnd<25 && !virus && infection<=30){
+                    setInfection(0);
+                }
                 if(rnd<50 && !virus){
                     decreaseInfection(20); //50% chance of 20% infection decrease
-                    //System.out.println("Removed 20% at " + x + "," + y + ", infection now at " + infection + "%");
+                    System.out.println("Removed 20% at " + x + "," + y + ", infection now at " + infection + "%");
                 }
                 //System.out.println("Roll:"+rnd);
 
@@ -207,9 +209,12 @@ public class Person {
         if(x>map.washroom[0]-42 && x<map.washroom[0]+242 && y>map.washroom[1]-42 && y<map.washroom[1]+142 && !washroom){
             washroom=true; //prevent reroll until out of range of washroom
             int rnd = new Random().nextInt(100);
+            if(rnd<10 && !virus && infection<=50){
+                setInfection(0);
+            }
             if(rnd<25 && !virus) {
                 decreaseInfection(50); //25% of removing 50%
-                //System.out.println("Removed 50% at " + x + "," + y + ", infection now at " + infection + "%");
+                System.out.println("Removed 50% at " + x + "," + y + ", infection now at " + infection + "%");
             }
             //System.out.println("Roll:"+rnd);
         }
@@ -225,7 +230,7 @@ public class Person {
             int rnd = new Random().nextInt(100);
             if(rnd<game.hospitalChance && infection>50) {
                 decreaseInfection(100);
-//                System.out.println("Removed 100% at " + x + "," + y + ", infection now at " + infection + "%");
+                System.out.println("Removed 100% at " + x + "," + y + ", infection now at " + infection + "%");
                 game.hospitalUsed = true;
             }
 //            System.out.println("Roll:"+rnd);
@@ -238,6 +243,5 @@ public class Person {
      */
     public void addMask(){
         mask=true;
-        maskStart=System.currentTimeMillis();
     }
 }
