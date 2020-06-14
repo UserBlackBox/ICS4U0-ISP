@@ -171,6 +171,7 @@ public class Tutorial
 			sketch.text("Hospital = Highly effective, rare usability",525,550,600,625);
 			if(elapsedTime<endTime+20000&&elapsedTime>endTime+18000)
 			{
+				gates[2]=false;
 				endTime=elapsedTime;
 				finished=true;
 			}

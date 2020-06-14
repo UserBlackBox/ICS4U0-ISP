@@ -27,6 +27,14 @@ public class Game {
     Main main; //main class
     GameOverScreen gos; //game over screen to display
     int infectionNum = 0;
+    String powerupName;
+    boolean powerupUsed;
+    boolean powerupInUse[];
+    int powerupType;
+    long powerupDuration;
+    long powerupTimeBeggin;
+    long powerupTimeElapsed;
+    boolean powerupDone;
 
     /**
      * Constructor for game that sets up game variables
@@ -36,8 +44,29 @@ public class Game {
     public Game(PApplet sketch, Main runner){
         this.sketch = sketch;
         m = new Map(sketch); //create map
-
         boolean[] pathsAssigned = new boolean[paths.length]; //which paths are used
+        //powerupType = new Random().nextInt(3);
+        powerupType=2;
+        powerupDuration=30000;
+        powerupUsed = false;
+        powerupDone=false;
+        powerupInUse= new boolean[3];
+        powerupTimeBeggin=0;
+        	if(powerupType==0)
+        	{
+        		powerupName= "Airborne Virus";	
+        		powerupInUse[1]=false;
+        	}
+        	else if(powerupType==1)
+        	{
+        		powerupName="Broken facilities";
+        		powerupInUse[1]=true;
+        	}
+        	else if(powerupType==2)
+        	{
+        		powerupName="Broken masks";
+        		powerupInUse[2]=true;
+        	}
         people = new Person[20]; //person array
         for(int i=0; i<people.length/2; i++){
             int rnd; //random path
@@ -73,7 +102,68 @@ public class Game {
         if(!finished) {
             sketch.background(24, 139, 24); //clear screen
             m.drawScreen(); //draw map
-
+            sketch.fill(0);
+          	sketch.textFont(sketch.loadFont("Graph-18.vlw"),15);
+            sketch.text(powerupName, 5, 75);
+            if(!powerupUsed)
+            {
+               	sketch.textSize(12);
+                sketch.text("Press p to activate", 10, 25);
+            	sketch.fill(255);
+            	sketch.rect(10, 35, 10, 10);
+            	if(sketch.keyPressed)
+            	{
+            		if(sketch.key=='p')
+            		{
+            			if(powerupType==1) // broken facilities
+            			{
+            				powerupTimeBeggin=System.currentTimeMillis();
+            				powerupInUse[1]=false;
+            			}
+            			if(powerupType==2) // broken masks
+            			{
+            				powerupTimeBeggin=System.currentTimeMillis();
+            				powerupInUse[2]=false;
+            			}
+            			
+            		}
+            		else
+            		{
+            		}
+            		powerupUsed=true;
+            	}
+            }
+            else if(powerupUsed && !powerupDone)
+            {
+            	powerupTimeElapsed=System.currentTimeMillis()- powerupTimeBeggin;
+            	if(powerupType==0)
+            	{
+            		
+            		for(Person i : people)
+            		{
+            			i.setVirus(false);
+            		}
+            		for(Person i : people)
+            		{
+            			if (i.isClicked() && (sketch.mouseButton == PApplet.LEFT || sketch.mouseButton == PApplet.RIGHT) ) { 
+            				i.setVirus(true);
+            				powerupDone=true;
+            				System.out.append("I am used");
+                            break;
+            			}
+            		}
+            	}
+            	if(powerupTimeElapsed>powerupDuration && powerupType==1)
+            	{
+            		powerupInUse[1]=true;
+            		powerupDone=true;
+            	}
+            	if(powerupTimeElapsed>powerupDuration && powerupType==2)
+            	{
+            		powerupInUse[2]=true;
+            		powerupDone=true;
+            	}
+            }
             for (ParkObject i : objs) {
                 i.drawObject(); //draw benches and tables
                 if (i.isClicked() && sketch.mouseButton == PApplet.LEFT) { //if object clicked (jump to object)
@@ -85,17 +175,19 @@ public class Game {
                     }
                 }
             }
-
             for (Person i : people) {
                 i.drawPerson(); //draw all people
                 if (sketch.frameCount % 5 == 0 && i.infection != 0) i.incrementInfection(1); //increment infection
                 if (sketch.frameCount % 5 == 0 && i.virus)
-                    i.incrementInfection(1); //double infection speed if virus on person
+                i.incrementInfection(1); //double infection speed if virus on person
+                if(powerupInUse[1])
+                {
                 i.sanitizer(); //check if in range of sanitizer or washroom and roll for chance or infection decrease
                 i.washroom();
                 i.hospital(); //check if in range of hospital
+                }
             }
-
+    
             if (sketch.mousePressed) { //check if mouse pressed in game
                 outerLoop:
                 //set outer loop for double break
@@ -112,8 +204,11 @@ public class Game {
                     if (i.isClicked() && sketch.mouseButton == PApplet.LEFT && i.infection == 0) { //if left click and target is healthy
                         for (Person j : people) { //look for in range 100% infected Person
                             if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && !j.equals(i) && (j.infection >= 100 || j.virus)) { //if virus carrier or fully infected in spread range
-                                if(j.mask && !j.virus){
+                                if(powerupInUse[2])
+                                {
+                            	if(j.mask && !j.virus ){
                                     continue;
+                                }
                                 }
                                 i.setInfection(5); //start infection on target
                                 break outerLoop; //double break
@@ -184,3 +279,4 @@ public class Game {
         }
     }
 }
+
