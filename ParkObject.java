@@ -1,5 +1,9 @@
 import processing.core.*;
-  
+  /**
+   * This class is in charge of the park objects on the screen. 
+   * These objects include benches and tables
+   * @author Quentin Fan-Chiang and Ruven Raizman 
+   */
 public class ParkObject {
     PApplet sketch;
     boolean virus; //is carrying virus

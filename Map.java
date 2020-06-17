@@ -1,17 +1,29 @@
 import java.util.*;
 import processing.core.PApplet;
-
+/**
+ * This Class is in charge of drawing the map for the main game 
+ * @author Quentin Fan-Chiang and Ruven Raizman 
+ *
+ */
 public class Map{
     PApplet sketch; //PApplet window
 	//coordinate of heal locations for Person class to calculate and roll
     ArrayList<Integer[]> sanitizer = new ArrayList<Integer[]>(); //sanitizer station locations
 	int[] washroom = new int[2]; //washroom and hospital locations for Person chance rolls
 	int[] hospital = new int[2];
-
+    /**
+     * This is the class constructor
+     * @param sketch is in charge of telling the map class where to draw 
+     */
     public Map(PApplet sketch)
     {
     	this.sketch = sketch;
     }
+    /**
+     * Draws the hand Sanitizers on the map 
+     * @param x the center x coordinate of the drawing. All the other x coordinates are based off of this x. 
+     * @param y the center y coordinate of the drawing. All the other y coordinates are based off of this y. 
+     */
 	public void handSanitizer(int x,int y)
 	{
 		sketch.strokeWeight(1);
@@ -24,6 +36,11 @@ public class Map{
 		sketch.ellipse(x,y,40,40);
 		sanitizer.add(new Integer[]{x,y}); //add station location to ArrayList
 	}
+	/**
+     * Draws the trees on the maps 
+     * @param x the center x coordinate of the drawing. All the other x coordinates are based off of this x. 
+     * @param y the center y coordinate of the drawing. All the other y coordinates are based off of this y. 
+     */
 	public void tree(int x,int y)
 	{
 		sketch.fill(137,211,16);
@@ -31,6 +48,11 @@ public class Map{
 		sketch.fill(121,227,28);
 		sketch.ellipse(x,y,30,30);
 	}
+	/**
+     * Draws the washroom on the map
+     * @param x the center x coordinate of the drawing. All the other x coordinates are based off of this x. 
+     * @param y the center y coordinate of the drawing. All the other y coordinates are based off of this y. 
+     */
 	public void washroom(int x, int y)
 	{
 		sketch.strokeWeight(1);
@@ -65,6 +87,11 @@ public class Map{
 		washroom[1] = y;
 
 	}
+	/**
+     * Draws the hospital on the map 
+     * @param x the center x coordinate of the drawing. All the other x coordinates are based off of this x. 
+     * @param y the center y coordinate of the drawing. All the other y coordinates are based off of this y. 
+     */
 	public void hospital(int x,int y)
 	{
 		sketch.strokeWeight(1);
@@ -85,6 +112,9 @@ public class Map{
 		hospital[0] = x; //set coordinates for Person class
 		hospital[1] = y;
 	} 
+	/**
+	 * Draws the base map
+	 */
 	public void drawScreen()
 	{
 		sketch.rectMode(PApplet.CORNER);

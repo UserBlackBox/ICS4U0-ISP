@@ -1,5 +1,8 @@
 import processing.core.*;
-
+/**
+ * This class draws the instructions
+ * @author Quentin Fan-Chiang and Ruven Raizman  
+ */
 public class Instructions {
     PApplet sketch;
     Main runner;
@@ -17,7 +20,9 @@ public class Instructions {
         font32 = sketch.loadFont("Graph-32.vlw");
         font48 = sketch.loadFont("Graph-48.vlw");
     }
-
+    /**
+     * Draws the instructions
+     */
     public void drawScreen(){
         sketch.background(56,88,128);
         sketch.textFont(font48, 48);
@@ -36,7 +41,7 @@ public class Instructions {
         sketch.rectMode(sketch.CENTER);
         sketch.textFont(font24,24);
         sketch.text("The goal of the game is to infect a certain percentage of people in the space before the vaccine is developed",275,220,500,500);
-        sketch.text("People can be infected by having the virus jump between people when the source is fully infected and in range. Each person has a meter displaying how infected they are and they can also go to special locations to disinfect. You can also infect objects to infect people nearby. As the game progresses, people will start wearing masks to make infection mor difficult", 275, 470,500,500);
+        sketch.text("People can be infected by having the virus jump between people when the source is fully infected and in range. Each person has a meter displaying how infected they are and they can also go to special locations to disinfect. You can also infect objects to infect people nearby. As the game progresses, people will start wearing masks to make infection more difficult", 275, 470,500,500);
         sketch.text("In-game you will receive one special item that can only be used once\nSanitation Failure - Disable all healing stations for 30 seconds\nAirborne - Teleport to an other person\nMask Breach - Make all masks useless for 30 seconds", 825, 270, 500, 500);
         sketch.text("Don't use special items right away, save them for when they will be the most effective\nStudy the paths that people take\nInfect objects located in busy areas", 825, 500, 500, 500);
 

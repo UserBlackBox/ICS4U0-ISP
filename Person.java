@@ -1,6 +1,10 @@
 import processing.core.PApplet;
 import java.util.*;
-
+/**
+ * This class is charge of the people on the screen
+ * @author Quentin Fan-Chiang and Ruven Raizman 
+ *
+ */
 public class Person {
     int[][] path; //walking paths
     int infection; //percentage infected

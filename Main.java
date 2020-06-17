@@ -1,5 +1,11 @@
 import processing.core.*;
-
+/**
+ * This Class is the Main class it runs the whole program 
+ * @author Quentin Fan-Chiang and Ruven Raizman 
+ * June 18 2020
+ * Ms.Krasteva 
+ * ICS4UO
+ */
 public class Main extends PApplet {
     int mode; //current scene: 1-mainMenu, 2-exit, 3-instructions, 4-tutorial, 5-game
     int prevFrameMode = 0;
@@ -16,20 +22,31 @@ public class Main extends PApplet {
     Game game;
     boolean debug = false; //toggle graphics debug mode
 
+    /**
+     * Class constructor 
+     */
     public Main(){
         mode = 1;
         play= new Music(musicList);
         play.playMusic(1);
     }
-
+    /**
+     * Return the current mode of the game 
+     * @return the current mode of the game 
+     */
     public int getMode()
     {
     	return mode;
     }
+    /**
+     * Sets up the screen size for the PApplet window 
+     */
     public void settings(){
        size(1100,900);
     }
-
+    /**
+     * Setups the PApplet window it also instantiates the most important classes
+     */
     public void setup(){
         frameRate(30);
         background(0);
@@ -40,6 +57,9 @@ public class Main extends PApplet {
         tutorialMap=new TutorialMap(this,tutorial);
     }
 
+    /**
+     * The function which keeps looping and keeps the game going and updating 
+     */
     public void draw(){
         if(mode == 1) menu.drawScreen(); //main menu
         else if(mode == 2)
@@ -92,7 +112,10 @@ public class Main extends PApplet {
 
         prevFrameMode = mode;
     }
-
+    /**
+     * Instantiates a Main class
+     * @param args
+     */
     public static void main(String[] args){
         String[] processingArgs = {"Main"};
         Main mySketch = new Main();

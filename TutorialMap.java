@@ -1,10 +1,19 @@
 import processing.core.PApplet;
 
+/**
+ * This class draws the map for the tutorial 
+ * @author Quentin Fan-Chiang, Ruven Raizman 
+ */
 public class TutorialMap extends Map
 {
 	ParkObject[] objs;
 	Tutorial events;
 
+	/**
+	 * Class constructor
+	 * @param sketch tells the class on which screen to draw the map 
+	 *        process tells the class on which tutorial it will draw the map 
+	 */
 	public TutorialMap(PApplet sketch, Tutorial process)
 	{
 		super(sketch);
@@ -12,7 +21,9 @@ public class TutorialMap extends Map
 		//benches and tables
 		objs = new ParkObject[]{ new ParkObject(sketch,2,575,360),new ParkObject(sketch,1,550,520)};
 	}
-
+ /**
+  * This draws the the tutorial map
+  */
 	public void drawScreen()
 	{
 		sketch.rectMode(PApplet.CORNER);
@@ -37,11 +48,6 @@ public class TutorialMap extends Map
 		for (ParkObject i : objs) {
 			i.drawObject(); //draw benches and tables
 		}
-//		if(sketch.mousePressed)
-//		{
-//			System.out.println("THis is x "+sketch.mouseX+"this is mouse y "+sketch.mouseY);
-//		}
-
 	}
 }	
 
