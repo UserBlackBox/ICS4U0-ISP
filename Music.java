@@ -54,6 +54,5 @@ public class Music {
 		}
 		musicCheck=true;
 		System.out.println("I am playing track "+i);
-		}
-	
+	}	
 }

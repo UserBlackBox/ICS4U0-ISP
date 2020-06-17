@@ -196,7 +196,6 @@ public class Person {
                 }
                 if(rnd<50 && !virus){
                     decreaseInfection(20); //50% chance of 20% infection decrease
-                    System.out.println("Removed 20% at " + x + "," + y + ", infection now at " + infection + "%");
                 }
                 //System.out.println("Roll:"+rnd);
 
@@ -218,7 +217,6 @@ public class Person {
             }
             if(rnd<25 && !virus) {
                 decreaseInfection(50); //25% of removing 50%
-                System.out.println("Removed 50% at " + x + "," + y + ", infection now at " + infection + "%");
             }
             //System.out.println("Roll:"+rnd);
         }
@@ -234,7 +232,6 @@ public class Person {
             int rnd = new Random().nextInt(100);
             if(rnd<game.hospitalChance && infection>50) {
                 decreaseInfection(100);
-                System.out.println("Removed 100% at " + x + "," + y + ", infection now at " + infection + "%");
                 game.hospitalUsed = true;
             }
 //            System.out.println("Roll:"+rnd);

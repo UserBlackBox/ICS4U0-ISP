@@ -48,7 +48,7 @@ public class Game {
         this.sketch = sketch;
         m = new Map(sketch); //create map
         boolean[] pathsAssigned = new boolean[paths.length]; //which paths are used
-        powerupType = new Random().nextInt(3);
+        powerupType = new Random().nextInt(3); 
         powerupDuration=30000;
         powerupUsed = false;
         powerupDone=false;
@@ -104,19 +104,38 @@ public class Game {
         if(!finished) {
             sketch.background(24, 139, 24); //clear screen
             m.drawScreen(); //draw map
-            sketch.fill(0);
-          	sketch.textFont(sketch.loadFont("Graph-18.vlw"),15);
-            sketch.text(powerupName, 5, 75);
             if(!powerupUsed)
             {
-               	sketch.textSize(12);
-                sketch.text("Press p to activate", 10, 25);
             	sketch.fill(255);
-            	sketch.rect(10, 35, 10, 10);
+            	sketch.rect(0,0,100,100);
+            	sketch.fill(8, 119, 199);
+              	sketch.textFont(sketch.loadFont("Graph-18.vlw"),14);
+                sketch.text(powerupName, 3, 15);
+               	sketch.fill(199, 8, 72);
+                sketch.text("Press p to", 15, 80);
+                sketch.text("activate", 23, 95);
+                if(powerupType==0)
+            	{
+            		sketch.fill(9, 21, 184);
+            		sketch.ellipse(45, 45, 15, 15);
+            	}
+            	else if(powerupType==1)
+            	{
+            		sketch.fill(123, 6, 191);
+            		sketch.ellipse(45, 45, 15, 15);
+            	}
+            	else if(powerupType==2)
+            	{
+            		sketch.fill(9, 217, 113);
+            		sketch.ellipse(45, 45, 15, 15);
+            	}
             	if(sketch.keyPressed)
             	{
-            		if(sketch.key=='p')
+            		if(sketch.keyPressed)
             		{
+            			if(sketch.key=='p')
+            			{
+            				
             			if(powerupType==1) // broken facilities
             			{
             				powerupTimeBeggin=System.currentTimeMillis();
@@ -127,12 +146,12 @@ public class Game {
             				powerupTimeBeggin=System.currentTimeMillis();
             				powerupInUse[2]=false;
             			}
-            			
+            			powerupUsed=true;
+            			}
             		}
             		else
             		{
             		}
-            		powerupUsed=true;
             	}
             }
             else if(powerupUsed && !powerupDone)
@@ -150,7 +169,6 @@ public class Game {
             			if (i.isClicked() && (sketch.mouseButton == PApplet.LEFT || sketch.mouseButton == PApplet.RIGHT) ) { 
             				i.setVirus(true);
             				powerupDone=true;
-            				System.out.append("I am used");
                             break;
             			}
             		}
@@ -165,6 +183,26 @@ public class Game {
             		powerupInUse[2]=true;
             		powerupDone=true;
             	}
+            	sketch.fill(255);
+            	sketch.rect(0,0,100,100);
+            	sketch.fill(8, 119, 199);
+              	sketch.textFont(sketch.loadFont("Graph-18.vlw"),14);
+                sketch.text("You are using", 8, 50);
+                sketch.text(powerupName, 4, 65);
+                if(powerupType!=0)
+                {
+                	
+                }
+            }
+            else
+            {
+            	sketch.fill(255);
+            	sketch.rect(0,0,100,100);
+            	sketch.fill(8, 119, 199);
+              	sketch.textFont(sketch.loadFont("Graph-18.vlw"),14);
+                sketch.text("You have used", 0, 50);
+                sketch.text("your powerup", 4, 65);
+                
             }
             for (ParkObject i : objs) {
                 i.drawObject(); //draw benches and tables
@@ -210,7 +248,7 @@ public class Game {
                                     i.setInfection(5);
                                     break outerLoop;
                                 }
-                                if((j.mask || i.mask) && powerupInUse[2]){
+                                if((j.mask || i.mask) && !powerupInUse[2]){
                                     continue;
                                 }
                                 i.setInfection(5); //start infection on target
