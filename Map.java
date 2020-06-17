@@ -14,6 +14,10 @@ public class Map{
     }
 	public void handSanitizer(int x,int y)
 	{
+		sketch.strokeWeight(1);
+		sketch.fill(85,255,127,20);
+		sketch.stroke(85,255,127,80);
+		sketch.ellipse(x,y,100,100);
 		sketch.fill(0);
 		sketch.ellipse(x,y,50,50);
 		sketch.fill(255);
@@ -29,6 +33,11 @@ public class Map{
 	}
 	public void washroom(int x, int y)
 	{
+		sketch.strokeWeight(1);
+		sketch.fill(85,255,127,20);
+		sketch.stroke(85,255,127,80);
+		sketch.rect(x-42,y-42,284,184);
+
 		//washroom 
 		sketch.fill(255);
 		sketch.rect(x,y,200,100);
@@ -54,9 +63,15 @@ public class Map{
 
 		washroom[0] = x;
 		washroom[1] = y;
+
 	}
 	public void hospital(int x,int y)
 	{
+		sketch.strokeWeight(1);
+		sketch.fill(85,255,127,20);
+		sketch.stroke(85,255,127,80);
+		sketch.rect(x-42,y-42,284,242);
+		sketch.noStroke();
 		//hospital
 		sketch.stroke(255);
 		sketch.rect(x,y,200,100);
