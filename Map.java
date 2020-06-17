@@ -11,6 +11,8 @@ public class Map{
     ArrayList<Integer[]> sanitizer = new ArrayList<Integer[]>(); //sanitizer station locations
 	int[] washroom = new int[2]; //washroom and hospital locations for Person chance rolls
 	int[] hospital = new int[2];
+	boolean outline = true;
+
     /**
      * This is the class constructor
      * @param sketch is in charge of telling the map class where to draw 
@@ -26,10 +28,12 @@ public class Map{
      */
 	public void handSanitizer(int x,int y)
 	{
-		sketch.strokeWeight(1);
-		sketch.fill(85,255,127,20);
-		sketch.stroke(85,255,127,80);
-		sketch.ellipse(x,y,100,100);
+		if(outline) {
+			sketch.strokeWeight(1);
+			sketch.fill(85, 255, 127, 20);
+			sketch.stroke(85, 255, 127, 80);
+			sketch.ellipse(x, y, 100, 100);
+		}
 		sketch.fill(0);
 		sketch.ellipse(x,y,50,50);
 		sketch.fill(255);
@@ -55,10 +59,12 @@ public class Map{
      */
 	public void washroom(int x, int y)
 	{
-		sketch.strokeWeight(1);
-		sketch.fill(85,255,127,20);
-		sketch.stroke(85,255,127,80);
-		sketch.rect(x-42,y-42,284,184);
+		if(outline) {
+			sketch.strokeWeight(1);
+			sketch.fill(85, 255, 127, 20);
+			sketch.stroke(85, 255, 127, 80);
+			sketch.rect(x - 42, y - 42, 284, 184);
+		}
 
 		//washroom 
 		sketch.fill(255);
@@ -94,11 +100,13 @@ public class Map{
      */
 	public void hospital(int x,int y)
 	{
-		sketch.strokeWeight(1);
-		sketch.fill(85,255,127,20);
-		sketch.stroke(85,255,127,80);
-		sketch.rect(x-42,y-42,284,242);
-		sketch.noStroke();
+		if(outline) {
+			sketch.strokeWeight(1);
+			sketch.fill(85, 255, 127, 20);
+			sketch.stroke(85, 255, 127, 80);
+			sketch.rect(x - 42, y - 42, 284, 242);
+			sketch.noStroke();
+		}
 		//hospital
 		sketch.stroke(255);
 		sketch.rect(x,y,200,100);
@@ -117,6 +125,7 @@ public class Map{
 	 */
 	public void drawScreen()
 	{
+
 		sketch.rectMode(PApplet.CORNER);
 		sketch.noStroke();
 		sketch.fill(24,139,24);//dark green

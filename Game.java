@@ -140,6 +140,7 @@ public class Game {
             			{
             				powerupTimeBeggin=System.currentTimeMillis();
             				powerupInUse[1]=false;
+            				m.outline = false;
             			}
             			if(powerupType==2) // broken masks
             			{
@@ -177,6 +178,7 @@ public class Game {
             	{
             		powerupInUse[1]=true;
             		powerupDone=true;
+            		m.outline = true;
             	}
             	if(powerupTimeElapsed>powerupDuration && powerupType==2)
             	{
