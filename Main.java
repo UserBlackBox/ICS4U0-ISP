@@ -38,8 +38,22 @@ public class Main extends PApplet {
     {
     	return mode;
     }
-
-    public void setMode(int m){mode = m;}
+   /**
+    * sets the current mode of the game 
+    * @param m the mode you want to set the game to 
+    */
+    public void setMode(int m)
+    {
+    	mode = m;
+    }
+    /**
+     * sets the prevFrameMode of the game 
+     * @param m the prevFrameMode you want to set the game to 
+     */
+    public void setPrevFrameMode(int m)
+    {
+    	prevFrameMode=m;
+    }
     /**
      * Sets up the screen size for the PApplet window 
      */
