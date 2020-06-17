@@ -21,14 +21,14 @@ public class Main extends PApplet {
     "ISP music/Slower-Tempo-2020-01-14_-_Evil_Rising_-_David_Fesliyan.wav"};
     Game game;
     boolean debug = false; //toggle graphics debug mode
+    private SplashScreen splashscreen;
 
     /**
      * Class constructor 
      */
     public Main(){
-        mode = 1;
+        mode = 0;
         play= new Music(musicList);
-        play.playMusic(1);
     }
     /**
      * Return the current mode of the game 
@@ -38,6 +38,8 @@ public class Main extends PApplet {
     {
     	return mode;
     }
+
+    public void setMode(int m){mode = m;}
     /**
      * Sets up the screen size for the PApplet window 
      */
@@ -55,13 +57,15 @@ public class Main extends PApplet {
         exit = new ExitScreen(this);
         instructions = new Instructions(this, this);
         tutorialMap=new TutorialMap(this,tutorial);
+        splashscreen = new SplashScreen(this,this);
     }
 
     /**
      * The function which keeps looping and keeps the game going and updating 
      */
     public void draw(){
-        if(mode == 1) menu.drawScreen(); //main menu
+        if(mode == 0) splashscreen.drawScreen();
+        else if(mode == 1) menu.drawScreen(); //main menu
         else if(mode == 2)
         {
         	if(prevFrameMode != mode)
