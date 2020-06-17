@@ -91,41 +91,7 @@ public class Person {
         }
     }
 
-    /**
-     * set person virus carrying
-     * @param b carrying status
-     */
-    public void setVirus(boolean b){
-        virus = b;
-    }
-
-    /**
-     * check if person is carrying virus
-     * @return virus
-     */
-    public boolean hasVirus(){
-    	return virus;
-    }
-
-    /**
-     * set infection amount of person
-     * @param p percentage to set infection to
-     */
-    public void setInfection(int p){
-        infection = p;
-    } //set infection level
-
-    /**
-     * check if person is infected
-     * @return boolean for if the person has infection
-     */
-    public boolean isInfected()
-    {
-    	if(infection!=0)
-    		return true;
-    	else 
-    		return false;
-    }
+    
 
     /**
      * increase infection of person
@@ -183,7 +149,7 @@ public class Person {
      */
     public void sanitizer(){
         boolean inRange = false;
-        for(Integer[] i : map.sanitizer){ //loop through all sanitizer stations in map
+        for(Integer[] i : map.getSanitizer()){ //loop through all sanitizer stations in map
             if(PApplet.dist(x,y,i[0],i[1])<=50 && !sanitizer){
                 sanitizer=true; //set boolean to true to prevent reroll until out of range of all stations
                 int rnd = new Random().nextInt(100);
@@ -206,7 +172,7 @@ public class Person {
      * check if person in range of washroom and do roll for heal
      */
     public void washroom(){
-        if(x>map.washroom[0]-42 && x<map.washroom[0]+242 && y>map.washroom[1]-42 && y<map.washroom[1]+142 && !washroom){
+        if(x>map.getWashroom(0)-42 && x<map.getWashroom(0)+242 && y>map.getWashroom(1)-42 && y<map.getWashroom(1)+142 && !washroom){
             washroom=true; //prevent reroll until out of range of washroom
             int rnd = new Random().nextInt(100);
             if(rnd<10 && !virus && infection<=50){
@@ -218,24 +184,24 @@ public class Person {
             }
             //System.out.println("Roll:"+rnd);
         }
-        if(!(x>map.washroom[0]-42 && x<map.washroom[0]+242 && y>map.washroom[1]-42 && y<map.washroom[1]+142)) washroom = false;
+        if(!(x>map.getWashroom(0)-42 && x<map.getWashroom(0)+242 && y>map.getWashroom(1)-42 && y<map.getWashroom(1)+142)) washroom = false;
     }
 
     /**
      * check if person in range of hospital and run roll for heal
      */
     public void hospital(){
-        if(x>map.hospital[0]-42 && x<map.hospital[0]+242 && y>map.hospital[1]-42 && y<map.hospital[1]+200 && !hospital){
+        if(x>map.getHospital(0)-42 && x<map.getHospital(0)+242 && y>map.getHospital(0)-42 && y<map.getHospital(1)+200 && !hospital){
             hospital=true; //prevent reroll until out of range of hospital
             int rnd = new Random().nextInt(100);
-            if(rnd<game.hospitalChance && infection>50) {
+            if(rnd<game.getHospitalChance() && infection>50) {
                 decreaseInfection(100);
 //                System.out.println("Removed 100% at " + x + "," + y + ", infection now at " + infection + "%");
-                game.hospitalUsed = true;
+                game.setHospitalUsed(true);
             }
 //            System.out.println("Roll:"+rnd);
         }
-        if(!(x>map.hospital[0]-42 && x<map.hospital[0]+242 && y>map.hospital[1]-42 && y<map.hospital[1]+200)) hospital = false;
+        if(!(x>map.getHospital(0)-42 && x<map.getHospital(0)+242 && y>map.getHospital(0)-42 && y<map.getHospital(1)+200)) hospital = false;
     }
 
     /**
@@ -243,5 +209,52 @@ public class Person {
      */
     public void addMask(){
         mask=true;
+    }
+    /**
+     * Is the person wearing a mask
+     * @return true or false depending if wearing or not 
+     */
+    public boolean hasMask()
+    {
+    	return mask;
+    }
+    /**
+     * set person virus carrying
+     * @param b carrying status
+     */
+    public void setVirus(boolean b){
+        virus = b;
+    }
+
+    /**
+     * check if person is carrying virus
+     * @return virus
+     */
+    public boolean hasVirus(){
+    	return virus;
+    }
+
+    /**
+     * set infection amount of person
+     * @param p percentage to set infection to
+     */
+    public void setInfection(int p){
+        infection = p;
+    } //set infection level
+
+    /**
+     * check if person is infected
+     * @return boolean for if the person has infection
+     */
+    public boolean isInfected()
+    {
+    	if(infection!=0)
+    		return true;
+    	else 
+    		return false;
+    }
+    public int getInfectionLvl()
+    {
+    	return infection;
     }
 }

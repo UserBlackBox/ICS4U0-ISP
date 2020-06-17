@@ -54,7 +54,7 @@ public class Instructions {
             sketch.stroke(255,0,0);
             if(sketch.mousePressed) mouse = true;
             if(!sketch.mousePressed && mouse){
-                runner.mode = 1;
+                runner.setMode(1);
             }
         }
         sketch.ellipse(1025,825,100,100);

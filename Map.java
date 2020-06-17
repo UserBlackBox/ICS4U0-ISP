@@ -91,7 +91,6 @@ public class Map{
 
 		washroom[0] = x;
 		washroom[1] = y;
-
 	}
 	/**
      * Draws the hospital on the map 
@@ -185,5 +184,27 @@ public class Map{
 	{
 		outline=b;
 	}
-	
+	/**
+	 * gets the Sanitizer arraylist
+	 * @return the sanitizer arrayList
+	 */
+	public ArrayList<Integer[]> getSanitizer() {
+		return sanitizer;
+	}
+	/**
+	 * Gets a specific number from the washroom arrray
+	 * @param i the number you want to get from the washroom array
+	 * @return the specific number from the washroom array
+	 */
+	public int getWashroom(int i) {
+		return washroom[i];
+	}
+	/**
+	 * Gets a specific number from the hospital arrray
+	 * @param i the number you want to get from the hospital array
+	 * @return the specific number from the hospital array
+	 */
+	public int getHospital(int i) {
+		return hospital[i];
+	}
 }

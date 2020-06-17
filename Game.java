@@ -202,11 +202,14 @@ public class Game {
                 sketch.text("your powerup", 4, 65);
                 
             }
+             ////end of powerup section
+            ////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////
             for (ParkObject i : objs) {
                 i.drawObject(); //draw benches and tables
                 if (i.isClicked() && sketch.mouseButton == PApplet.LEFT) { //if object clicked (jump to object)
                     for (Person j : people) { //find people in range with virus
-                        if (i.personInRange(j) && (j.virus||j.infection==100)) { //is person in range and infected
+                        if (i.personInRange(j) && (j.hasVirus()||j.getInfectionLvl()==100)) { //is person in range and infected
                             i.setVirus(true);
                             break;
                         }
@@ -215,8 +218,8 @@ public class Game {
             }
             for (Person i : people) {
                 i.drawPerson(); //draw all people
-                if (sketch.frameCount % 5 == 0 && i.infection != 0) i.incrementInfection(1); //increment infection
-                if (sketch.frameCount % 5 == 0 && i.virus)
+                if (sketch.frameCount % 5 == 0 && i.getInfectionLvl() != 0) i.incrementInfection(1); //increment infection
+                if (sketch.frameCount % 5 == 0 && i.hasVirus())
                 i.incrementInfection(1); //double infection speed if virus on person
                 if(powerupInUse[1] || powerupType!=1)
                 {
@@ -232,21 +235,21 @@ public class Game {
                 for (Person i : people) { //loop through Person entities
                     if (i.isClicked() && sketch.mouseButton == PApplet.RIGHT) { //if right click on person
                         for (Person j : people) { //loop through people for in range virus carrier
-                            if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && j.virus) { //if carrier in range to target
-                                j.virus = false; //virus jump from one person to other
-                                i.virus = true;
+                            if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && j.hasVirus()) { //if carrier in range to target
+                                j.setVirus(false); //virus jump from one person to other
+                                i.setVirus(true);
                                 break outerLoop; //break both loops
                             }
                         }
                     }
-                    if (i.isClicked() && sketch.mouseButton == PApplet.LEFT && i.infection == 0) { //if left click and target is healthy
+                    if (i.isClicked() && sketch.mouseButton == PApplet.LEFT && i.getInfectionLvl() == 0) { //if left click and target is healthy
                         for (Person j : people) { //look for in range 100% infected Person
-                            if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && !j.equals(i) && (j.infection >= 100 || j.virus)) { //if virus carrier or fully infected in spread range
-                                if(j.virus){
+                            if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && !j.equals(i) && (j.getInfectionLvl() >= 100 || j.hasVirus())) { //if virus carrier or fully infected in spread range
+                                if(j.hasVirus()){
                                     i.setInfection(5);
                                     break outerLoop;
                                 }
-                                if((j.mask || i.mask) && !powerupInUse[2]){
+                                if((j.hasMask() || i.hasMask()) && !powerupInUse[2]){
                                     continue;
                                 }
                                 i.setInfection(5); //start infection on target
@@ -254,7 +257,7 @@ public class Game {
                             }
                         }
                         for (ParkObject j : objs) { //loop through objects for carriers
-                            if (j.personInRange(i) && j.virus) { //object in range and carrier
+                            if (j.personInRange(i) && j.hasVirus()) { //object in range and carrier
                                 i.setInfection(5);
                                 break outerLoop;
                             }
@@ -265,11 +268,11 @@ public class Game {
 
             int infected = 0;
             for(Person i : people){
-                if(i.infection>=100) infected+=1;
+                if(i.getInfectionLvl()>=100) infected+=1;
             }
             if(infectionNum > people.length/2 && infected>infectionNum && infected%2==0){
                 for(Person i: people){
-                    if(!i.mask){
+                    if(!i.hasMask()){
                         i.addMask();
                         break;
                     }
@@ -280,7 +283,7 @@ public class Game {
             double infectionSum = 0; //sum of percentages of all people
             for (Person i : people) {
                 if (sketch.frameCount % 2 == 0) i.calc(); //calculate person's next coordinates
-                infectionSum += i.infection; //sum of Person infections
+                infectionSum += i.getInfectionLvl(); //sum of Person infections
             }
             percentage = infectionSum / (100 * people.length) * 100; //calculate infection percentage
             sketch.fill(255);
@@ -312,5 +315,20 @@ public class Game {
             gos.drawScreen();
         }
     }
+    /**
+     * Gets the hospital chance at the moment 
+     * @return the hopsital chance right now 
+     */
+	public int getHospitalChance() {
+		return hospitalChance;
+	}
+    /**
+     * Sets whether the hospital was used or not. 
+     * @param b sets whether the hospital has been used or not
+     */
+	public void  setHospitalUsed(boolean b) {
+		 hospitalUsed=b;
+	}
+    
 }
 

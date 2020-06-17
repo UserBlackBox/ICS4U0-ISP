@@ -88,19 +88,19 @@ public class MainMenuJava extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()== gameButton)
 		{
-			runner.mode=5;
+			runner.setMode(5);
 		}
 		else if(e.getSource()== tutorialButton)
 		{
-			runner.mode=4;
+			runner.setMode(4);
 		}
 		else if(e.getSource()== instructionsButton)
 		{
-			runner.mode=3;
+			runner.setMode(3);
 		}
 		else if(e.getSource()== exitButton)
 		{
-			runner.mode=2;
+			runner.setMode(2);
 		}
 		frame.setVisible(false); //hide main menu window
 		sketch.loop(); //start PApplet draw() loop

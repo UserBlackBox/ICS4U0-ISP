@@ -100,4 +100,12 @@ public class ParkObject {
     public boolean isClicked(){
         return sketch.mousePressed && (type == 1 && sketch.mouseX >= x && sketch.mouseX <= x+75 && sketch.mouseY >= y && sketch.mouseY <= y+20) || (type == 2 && sketch.mouseX >= x && sketch.mouseX <= x+25 && sketch.mouseY >= y && sketch.mouseY <= y+25);
     }
+    /**
+     * Is the park object infected
+     * @return true if it has the virus and false if it doesn't
+     */
+    public boolean hasVirus()
+    {
+    	return virus;
+    }
 }

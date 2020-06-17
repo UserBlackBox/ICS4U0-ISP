@@ -64,8 +64,8 @@ public class Tutorial
 			m.drawScreen(); //draw map
 			for (Person i : people) {
 				i.drawPerson(); //draw all people
-				if (sketch.frameCount % 5 == 0 && i.infection != 0) i.incrementInfection(1); //increment infection
-				if (sketch.frameCount % 5 == 0 && i.virus)
+				if (sketch.frameCount % 5 == 0 && i.getInfectionLvl() != 0) i.incrementInfection(1); //increment infection
+				if (sketch.frameCount % 5 == 0 && i.hasVirus())
 					i.incrementInfection(1); //double infection speed if virus on person
 			}
 
@@ -76,13 +76,13 @@ public class Tutorial
 						if (i.isClicked() && sketch.mouseButton == PApplet.RIGHT) { //if right click on person
 							for (Person j : people) { //loop through people for in range virus carrier
 								if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && j.virus) { //if carrier in range to target
-									j.virus = false; //virus jump from one person to other
-									i.virus = true;
+									j.setVirus(false); //virus jump from one person to other
+									i.setVirus(true);
 									break outerLoop; //break both loops
 								}
 							}
 						}
-						if (i.isClicked() && sketch.mouseButton == PApplet.LEFT && i.infection == 0) { //if left click and target is healthy
+						if (i.isClicked() && sketch.mouseButton == PApplet.LEFT && i.getInfectionLvl() == 0) { //if left click and target is healthy
 							for (Person j : people) { //look for in range 100% infected Person
 								if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && !j.equals(i) && (j.infection >= 100 || j.virus)) { //if virus carrier or fully infected in spread range
 									i.setInfection(5); //start infection on target
@@ -173,7 +173,7 @@ public class Tutorial
 		else if(elapsedTime<endTime+20000 && elapsedTime>endTime+3000 && gates[2] && !gates[1])
 		{
 			slide(" Once people are infected its not a dead end for them."
-					+ " Their are different methods for them to try and get rid of the virus to."
+					+ " Their are different methods for them to try and get rid of the virus to. When people walk by Sanitary facilties they might get healed. The range of the facilities is shown in green."
 					,"People can heal too");
 			sketch.text("Hand Sanitizer = least effective, most usable",25,600,100,650);
 			sketch.text("Washroom = middle effectiveness, middle usablity",100,250,200,350);

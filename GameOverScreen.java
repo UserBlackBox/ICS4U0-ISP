@@ -76,8 +76,8 @@ public class GameOverScreen {
         sketch.popMatrix();
 
         if(sketch.mousePressed){ //exit to main menu if mouse clicked
-            runner.mode=1;
-            runner.prevFrameMode=1;
+            runner.setMode(1);
+            runner.setPrevFrameMode(1);
         }
     }
 }
