@@ -5,10 +5,10 @@ import processing.core.*;
  * @author Quentin Fan-Chiang and Ruven Raizman  
  */
 public class TutorialScreens {
-	PApplet sketch; //PApplet window
-	PFont font18, font32, font48; //fonts
-	PImage image1, image2; //virus images
-	Main runner; //main window
+	private PApplet sketch; //PApplet window
+	private PFont font18, font32, font48; //fonts
+	private PImage image1, image2; //virus images
+	private Main runner; //main window
 	/**
 	 * This is the class Constructer
 	 * @param sketch tells the class where to draw the information

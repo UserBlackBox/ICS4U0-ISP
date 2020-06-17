@@ -5,9 +5,9 @@ import java.util.*;
  * @author Quentin Fan-Chiang and Ruven Raizman  
  */
 public class Game {
-    Map m; //map 
-    PApplet sketch; //PApplet window
-    int[][][] paths = new int[][][]{
+    private Map m; //map
+    private PApplet sketch; //PApplet window
+    private int[][][] paths = new int[][][]{
             {{200,205}, {372,357}, {506,306}, {720,340}, {910,200}, {910,735}, {175,735}},
             {{20,160}, {150,175}, {160,860}, {150,175}},
             {{170,30}, {170,170}, {485,133}, {499,57}, {444,14}, {404,47}, {405,145}, {1060,157}, {170,170}},
@@ -19,25 +19,25 @@ public class Game {
             {{173,451}, {326,456}, {375,551}, {525,605}, {708,565}, {907,727}, {180,741}},
             {{718,347}, {910,200}, {530,175}, {530,285}}
     }; //possible person walking paths
-    Person[] people; //person objects in game
-    long startTime; //time at start of game (milliseconds)
-    long elapsedTime = 0; //amount of time in game (milliseconds)
-    double percentage; //score
-    int hospitalChance = 0; //chance of hospital roll
-    boolean hospitalUsed = false; //has the hospital been used
-    ParkObject[] objs; //benches and tables
-    boolean finished; //has the game finished
-    Main main; //main class
-    GameOverScreen gos; //game over screen to display
-    int infectionNum = 0;
-    String powerupName;
-    boolean powerupUsed;
-    boolean powerupInUse[];
-    int powerupType;
-    long powerupDuration;
-    long powerupTimeBeggin;
-    long powerupTimeElapsed;
-    boolean powerupDone;
+    private Person[] people; //person objects in game
+    private long startTime; //time at start of game (milliseconds)
+    private long elapsedTime = 0; //amount of time in game (milliseconds)
+    private double percentage; //score
+    private int hospitalChance = 0; //chance of hospital roll
+    private boolean hospitalUsed = false; //has the hospital been used
+    private ParkObject[] objs; //benches and tables
+    private boolean finished; //has the game finished
+    private Main main; //main class
+    private GameOverScreen gos; //game over screen to display
+    private int infectionNum = 0;
+    private String powerupName;
+    private boolean powerupUsed;
+    private boolean powerupInUse[];
+    private int powerupType;
+    private long powerupDuration;
+    private long powerupTimeBeggin;
+    private long powerupTimeElapsed;
+    private boolean powerupDone;
 
     /**
      * Constructor for game that sets up game variables

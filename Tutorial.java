@@ -6,11 +6,11 @@ import processing.core.PApplet;
 public class Tutorial 
 {
 
-	PApplet sketch;
-	TutorialMap m;
-	Main main;
-	Person[] people; //person objects in game
-	int[][][] paths = new int[][][]{
+	private PApplet sketch;
+	private TutorialMap m;
+	private Main main;
+	private Person[] people; //person objects in game
+	private int[][][] paths = new int[][][]{
 		{{3,435}, {258,435}, {223,563}, {296,627}, {373,545}, {322,436}, {1089,455}},
 		{{68,520}, {68,490}},
 		{{89,413}, {165,413}},
@@ -18,14 +18,14 @@ public class Tutorial
 		{{886,474}, {870,535}},
 		{{450,480},{165,480},{165,435},{80,435}}
 	};
-    long startTime;   //in milliseconds
-    long elapsedTime;
-    long endTime;
-    int fps=30;
-    boolean start; //did the tutorial screen run 
-	boolean finished; //has the tutorial finished
-	boolean gates[]=new boolean[5];
-	TutorialScreens gg;
+	private long startTime;   //in milliseconds
+	private long elapsedTime;
+	private long endTime;
+	private int fps=30;
+	private boolean start; //did the tutorial screen run
+	private boolean finished; //has the tutorial finished
+	private boolean gates[]=new boolean[5];
+	private TutorialScreens gg;
 	/**
 	 * Class constructor 
 	 * @param sketch tells the class where to draw the information it needs to draw 
@@ -75,7 +75,7 @@ public class Tutorial
 					for (Person i : people) { //loop through Person entities
 						if (i.isClicked() && sketch.mouseButton == PApplet.RIGHT) { //if right click on person
 							for (Person j : people) { //loop through people for in range virus carrier
-								if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && j.virus) { //if carrier in range to target
+								if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && j.getVirus()) { //if carrier in range to target
 									j.setVirus(false); //virus jump from one person to other
 									i.setVirus(true);
 									break outerLoop; //break both loops
@@ -84,7 +84,7 @@ public class Tutorial
 						}
 						if (i.isClicked() && sketch.mouseButton == PApplet.LEFT && i.getInfectionLvl() == 0) { //if left click and target is healthy
 							for (Person j : people) { //look for in range 100% infected Person
-								if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && !j.equals(i) && (j.infection >= 100 || j.virus)) { //if virus carrier or fully infected in spread range
+								if (PApplet.dist(j.getCoor()[0], j.getCoor()[1], i.getCoor()[0], i.getCoor()[1]) < 37 && !j.equals(i) && (j.getInfectionLvl() >= 100 || j.getVirus())) { //if virus carrier or fully infected in spread range
 									i.setInfection(5); //start infection on target
 									break outerLoop; //double break
 								}

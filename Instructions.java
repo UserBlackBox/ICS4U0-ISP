@@ -4,10 +4,10 @@ import processing.core.*;
  * @author Quentin Fan-Chiang and Ruven Raizman  
  */
 public class Instructions {
-    PApplet sketch;
-    Main runner;
-    boolean mouse = false;
-    PFont font24, font32, font48;
+    private PApplet sketch;
+    private Main runner;
+    private boolean mouse = false;
+    private PFont font24, font32, font48;
 
     /**
      * Class constructor for instructions scene

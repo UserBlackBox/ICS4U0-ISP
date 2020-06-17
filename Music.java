@@ -10,11 +10,11 @@ import javax.sound.sampled.*;
  */
 public class Music {
 
-	String[] album;
-	String musicLocation;
-	String musicRunning;
-	boolean musicCheck;
-	Clip clip;
+	private String[] album;
+	private String musicLocation;
+	private String musicRunning;
+	private boolean musicCheck;
+	private Clip clip;
 	/**
 	 * 
 	 * @param album is in charge of providing the songs to be played in the class 

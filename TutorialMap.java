@@ -6,8 +6,8 @@ import processing.core.PApplet;
  */
 public class TutorialMap extends Map
 {
-	ParkObject[] objs;
-	Tutorial events;
+	private ParkObject[] objs;
+	private Tutorial events;
 
 	/**
 	 * Class constructor

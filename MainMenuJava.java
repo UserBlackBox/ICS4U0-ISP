@@ -9,13 +9,13 @@ import processing.core.*;
  *
  */
 public class MainMenuJava extends JPanel implements ActionListener {
-	JButton tutorialButton,gameButton,instructionsButton,exitButton;
-	GridBagConstraints gbc;
-	JPanel p;
-	JFrame frame;
-	JLabel title;
-	Main runner;
-	PApplet sketch;
+	private JButton tutorialButton,gameButton,instructionsButton,exitButton;
+	private GridBagConstraints gbc;
+	private JPanel p;
+	private JFrame frame;
+	private JLabel title;
+	private Main runner;
+	private PApplet sketch;
 
 	/**
 	 * This is the class constructer
@@ -74,8 +74,8 @@ public class MainMenuJava extends JPanel implements ActionListener {
 		gameButton.addActionListener(this);
 		instructionsButton.addActionListener(this);
 		exitButton.addActionListener(this);
-		runner.prevFrameMode = 1;
-		runner.play.playMusic(1);
+		runner.setPrevFrameMode(1);
+		runner.getPlayer().playMusic(1);
 		sketch.frame.setVisible(false); //hide PApplet window
 		sketch.noLoop(); //stop PApplet draw() loop
         frame.setLocationRelativeTo(null); // makes the screen centered 

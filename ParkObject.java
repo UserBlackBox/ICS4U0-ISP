@@ -5,11 +5,11 @@ import processing.core.*;
    * @author Quentin Fan-Chiang and Ruven Raizman 
    */
 public class ParkObject {
-    PApplet sketch;
-    boolean virus; //is carrying virus
+    private PApplet sketch;
+    private boolean virus; //is carrying virus
     //boolean gotInfected; // Has the virus infected the table once
-    int type; //1 - bench, 2 - table
-    int x,y;
+    private int type; //1 - bench, 2 - table
+    private int x,y;
 
     /**
      * Constructor for a ParkObject
@@ -90,7 +90,7 @@ public class ParkObject {
      * @return true if in range
      */
     public boolean personInRange(Person p){
-        return (type == 2 && p.x <= x + 50 && p.x >= x - 25 && p.y <= y + 50 && p.y >= y - 25) || (type==1 && p.x<=x+100 && p.x>=x-25 && p.y<=y+45 && p.y>=y-25);
+        return (type == 2 && p.getCoor()[0] <= x + 50 && p.getCoor()[0] >= x - 25 && p.getCoor()[1] <= y + 50 && p.getCoor()[1] >= y - 25) || (type==1 && p.getCoor()[0]<=x+100 && p.getCoor()[0]>=x-25 && p.getCoor()[1]<=y+45 && p.getCoor()[1]>=y-25);
     }
 
     /**

@@ -7,20 +7,20 @@ import processing.core.*;
  * ICS4UO
  */
 public class Main extends PApplet {
-    int mode; //current scene: 1-mainMenu, 2-exit, 3-instructions, 4-tutorial, 5-game
-    int prevFrameMode = 0;
-    MainMenuJava menu;
-    ExitScreen exit;
-    Instructions instructions; 
-    TutorialMap tutorialMap;
-    Tutorial tutorial;
-    boolean musicCheck=true;
-    Music play;
-    String[] musicList= {"ISP music/2018-05-19_-_Video_Game_Adventure_-_David_Fesliyan.wav","ISP music/2018-06-13_-_Paranoia_-_David_Fesliyan.wav",
+    private int mode; //current scene: 1-mainMenu, 2-exit, 3-instructions, 4-tutorial, 5-game
+    private int prevFrameMode = 0;
+    private MainMenuJava menu;
+    private ExitScreen exit;
+    private Instructions instructions;
+    private TutorialMap tutorialMap;
+    private Tutorial tutorial;
+    private boolean musicCheck=true;
+    private Music play;
+    private String[] musicList= {"ISP music/2018-05-19_-_Video_Game_Adventure_-_David_Fesliyan.wav","ISP music/2018-06-13_-_Paranoia_-_David_Fesliyan.wav",
     "ISP music/2019-02-25_-_Poisonous_-_David_Fesliyan.wav","ISP music/2019-03-17_-_Too_Crazy_-_David_Fesliyan.wav","ISP music/2019-10-06_-_Villainous_-_David_Fesliyan.wav",
     "ISP music/Slower-Tempo-2020-01-14_-_Evil_Rising_-_David_Fesliyan.wav"};
-    Game game;
-    boolean debug = false; //toggle graphics debug mode
+    private Game game;
+    private boolean debug = false; //toggle graphics debug mode
     private SplashScreen splashscreen;
 
     /**
@@ -53,6 +53,14 @@ public class Main extends PApplet {
     public void setPrevFrameMode(int m)
     {
     	prevFrameMode=m;
+    }
+
+    /**
+     * get the game music player
+     * @return player object
+     */
+    public Music getPlayer(){
+        return play;
     }
     /**
      * Sets up the screen size for the PApplet window 

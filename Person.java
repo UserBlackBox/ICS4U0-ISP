@@ -2,20 +2,20 @@ import processing.core.PApplet;
 import java.util.*;
 
 public class Person {
-    int[][] path; //walking paths
-    int infection; //percentage infected
-    boolean virus; //is the virus riding this person
-    float x, y; //current coordinates
-    int pathIndex; //which index in path are they walking to currently
-    PApplet sketch; //window
-    double speed = 1; //walking speed
-    boolean sanitizer = false; //track if in range of sanitizer
-    boolean washroom = false; //track if in range of washroom
-    boolean hospital = false; //track if in range of hospital
-    boolean mask = false; //person wearing a mask
-    Map map;
-    Game game;
-    Tutorial tutorial;
+    private int[][] path; //walking paths
+    private int infection; //percentage infected
+    private boolean virus; //is the virus riding this person
+    private float x, y; //current coordinates
+    private int pathIndex; //which index in path are they walking to currently
+    private PApplet sketch; //window
+    private double speed = 1; //walking speed
+    private boolean sanitizer = false; //track if in range of sanitizer
+    private boolean washroom = false; //track if in range of washroom
+    private boolean hospital = false; //track if in range of hospital
+    private boolean mask = false; //person wearing a mask
+    private Map map;
+    private Game game;
+    private Tutorial tutorial;
 
     /**
      * Person constructor for game
@@ -253,8 +253,19 @@ public class Person {
     	else 
     		return false;
     }
+
+    /**
+     * get the infection percentage of a person
+     * @return percentage
+     */
     public int getInfectionLvl()
     {
     	return infection;
     }
+
+    /**
+     * get the virus carrying status of a person
+     * @return virus
+     */
+    public boolean getVirus() { return virus; }
 }

@@ -4,9 +4,9 @@ import processing.core.*;
  * @author Quentin Fan-Chiang and Ruven Raizman  
  */
 public class ExitScreen {
-    PApplet sketch;
-    PFont font18, font32, font48;
-    PImage image1, image2;
+    private PApplet sketch;
+    private PFont font18, font32, font48;
+    private PImage image1, image2;
 
     /**
      * Constructor for the class

@@ -4,12 +4,12 @@ import processing.core.*;
  * @author Quentin Fan-Chiang and Ruven Raizman  
  */
 public class GameOverScreen {
-    PApplet sketch; //PApplet window
-    PFont font18, font32, font48; //fonts
-    PImage image1, image2; //virus images
-    boolean success; //did game end as win or lose
-    long time; //time left
-    Main runner; //main window
+    private PApplet sketch; //PApplet window
+    private PFont font18, font32, font48; //fonts
+    private PImage image1, image2; //virus images
+    private boolean success; //did game end as win or lose
+    private long time; //time left
+    private Main runner; //main window
     /**
      * Class constructor 
      * @param sketch PApplet window to draw to
