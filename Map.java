@@ -177,4 +177,13 @@ public class Map{
 		washroom(215,775);
 		hospital(825,0);
 	}
+	/**
+	 * It sets outline to a given variable
+	 * @param b what you want to set outline as
+	 */
+	public void setOutline(boolean b)
+	{
+		outline=b;
+	}
+	
 }

@@ -37,14 +37,16 @@ public class Instructions {
         sketch.text("Game Mechanics", 275, 320);
         sketch.text("Special Items", 825,150);
         sketch.text("Tips", 825, 410);
+        sketch.text("Controls", 825, 600);
 
         sketch.rectMode(sketch.CENTER);
         sketch.textFont(font24,24);
         sketch.text("The goal of the game is to infect a certain percentage of people in the space before the vaccine is developed",275,220,500,500);
-        sketch.text("People can be infected by having the virus jump between people when the source is fully infected and in range. Each person has a meter displaying how infected they are and they can also go to special locations to disinfect. You can also infect objects to infect people nearby. As the game progresses, people will start wearing masks to make infection more difficult", 275, 470,500,500);
+        sketch.text("People can be infected by having the virus jump between people when the source is fully infected and in range. Each person has a meter displaying how infected they are. Once a meter is fully filled they can also infect people around them. This is done in the same manner that the virused person infects others. People also have a chance to get disinfected if they walk inside the range of a facility (this is range is shown with a green area around the object). You can also infect objects to infect people nearby. As the game progresses, people will start wearing masks to make infection more difficult", 275, 570,500,500);
         sketch.text("In-game you will receive one special item that can only be used once\nSanitation Failure - Disable all healing stations for 30 seconds\nAirborne - Teleport to an other person\nMask Breach - Make all masks useless for 30 seconds", 825, 270, 500, 500);
         sketch.text("Don't use special items right away, save them for when they will be the most effective\nStudy the paths that people take\nInfect objects located in busy areas", 825, 500, 500, 500);
-
+        sketch.text("To move from person to person you right click a person who is inside your range (showed by the orange circle). If you want to just infect somebody without moving to them you left click them.", 825, 720,500,500);
+        
         sketch.fill(200,0,0); //back button
         sketch.stroke(200,0,0);
         if(PApplet.dist(1025,825,sketch.mouseX,sketch.mouseY)<=50){

@@ -140,7 +140,7 @@ public class Game {
             			{
             				powerupTimeBeggin=System.currentTimeMillis();
             				powerupInUse[1]=false;
-            				m.outline = false;
+            				m.setOutline(false);
             			}
             			if(powerupType==2) // broken masks
             			{
@@ -178,7 +178,7 @@ public class Game {
             	{
             		powerupInUse[1]=true;
             		powerupDone=true;
-            		m.outline = true;
+            		m.setOutline(true);
             	}
             	if(powerupTimeElapsed>powerupDuration && powerupType==2)
             	{
@@ -191,10 +191,6 @@ public class Game {
               	sketch.textFont(sketch.loadFont("Graph-18.vlw"),14);
                 sketch.text("You are using", 8, 50);
                 sketch.text(powerupName, 4, 65);
-                if(powerupType!=0)
-                {
-                	
-                }
             }
             else
             {
