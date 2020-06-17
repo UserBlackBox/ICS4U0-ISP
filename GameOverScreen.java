@@ -1,5 +1,8 @@
 import processing.core.*;
-
+/**
+ * This class draws the game over screen when the game ends
+ * @author Quentin Fan-Chiang and Ruven Raizman  
+ */
 public class GameOverScreen {
     PApplet sketch; //PApplet window
     PFont font18, font32, font48; //fonts
@@ -7,7 +10,13 @@ public class GameOverScreen {
     boolean success; //did game end as win or lose
     long time; //time left
     Main runner; //main window
-
+    /**
+     * Class constructor 
+     * @param sketch PApplet window to draw to
+     * @param s boolean to see whether the player won or lost
+     * @param t in how much time the user finished the game 
+     * @param m allows the screen to change back to main menu 
+     */
     public GameOverScreen(PApplet sketch, boolean s, long t, Main m){
         this.sketch = sketch;
         font18 = sketch.loadFont("Graph-18.vlw"); //load fonts
@@ -19,7 +28,9 @@ public class GameOverScreen {
         time = t;
         runner = m;
     }
-
+    /**
+     * draws the end game screen
+     */
     public void drawScreen(){
         sketch.background(56,88,128);
         sketch.textFont(font48, 48); //title

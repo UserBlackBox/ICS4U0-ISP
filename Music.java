@@ -3,7 +3,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.sound.sampled.*;
-
+/**
+ * This class is in charge of playing the music
+ * @author Quentin Fan-Chiang and Ruven Raizman 
+ *
+ */
 public class Music {
 
 	String[] album;
@@ -11,16 +15,19 @@ public class Music {
 	String musicRunning;
 	boolean musicCheck;
 	Clip clip;
+	/**
+	 * 
+	 * @param album is in charge of providing the songs to be played in the class 
+	 */
 	public Music (String[] album)
 	{
 		this.album=album;
 		musicCheck=false;
 	}
-	
-//	private DataLine.Info path(File location)
-//	{
-//		DataLine.Info info;
-//	}
+   /**
+     * 
+     * @param i is in charge of playing a specific song from the album 
+     */
 	public void playMusic (int i)
 	{
 		if(musicCheck)
@@ -46,7 +53,7 @@ public class Music {
 			ex.printStackTrace();
 		}
 		musicCheck=true;
-		//System.out.println("I am playing track "+i);
+		System.out.println("I am playing track "+i);
 		}
 	
 }

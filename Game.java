@@ -1,6 +1,9 @@
 import processing.core.*;
 import java.util.*;
-
+/**
+ * The main game 
+ * @author Quentin Fan-Chiang and Ruven Raizman  
+ */
 public class Game {
     Map m; //map 
     PApplet sketch; //PApplet window

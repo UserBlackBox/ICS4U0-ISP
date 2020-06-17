@@ -1,7 +1,8 @@
-import java.util.Random;
 import processing.core.PApplet;
-import processing.core.PShape;
-
+/**
+ * This class is in charge of the tutorial gameplay 
+ * @author Quentin Fan-Chiang and Ruven Raizman 
+ */
 public class Tutorial 
 {
 
@@ -25,6 +26,12 @@ public class Tutorial
 	boolean finished; //has the tutorial finished
 	boolean gates[]=new boolean[5];
 	TutorialScreens gg;
+	/**
+	 * Class constructor 
+	 * @param sketch tells the class where to draw the information it needs to draw 
+	 *        m tells the Tutorial what map to draw for this tutorial 
+	 *        runner tells the class what is running the class  
+	 */
 	public Tutorial(PApplet sketch,TutorialMap m,Main runner)
 	{
 		this.sketch=sketch;
@@ -47,7 +54,9 @@ public class Tutorial
 		m.drawScreen();
 		gg=new TutorialScreens(sketch,runner);
 	}
-	
+    /**
+     * This method draws the tutorial frame by frame 
+     */
 	public void frame()
 	{
 		if(!finished) {
@@ -87,10 +96,10 @@ public class Tutorial
 		for (Person i : people) {
 			if (sketch.frameCount % 2 == 0) i.calc(); //calculate person's next coordinates
 		}
+		// The rest of the code from here is what makes the tutorial slow down and progress 
 		elapsedTime = System.currentTimeMillis() - startTime;
 		if(elapsedTime<20000 && gates[0] )
 		{
-			//System.out.println(elapsedTime);
 			slide(" You may only infect people inside your range showed by the orange circle."+
 					" Infect and jump to another person by right clicking and only infect a person by left clicking. X marks the spot(you);)" 
 					,"How to infect");
@@ -181,6 +190,11 @@ public class Tutorial
 		}
 		
 	}
+	/**
+	 * This method draws a info slide in the tutorial
+	 * @param mainText tells what text to put into the info slide 
+	 *        title    tells what the title should be for this info slide in the tutorial 
+	 */
 	private void slide(String mainText,String title)
 	{
 		sketch.fill(126,54,52);

@@ -1,5 +1,8 @@
 import processing.core.*;
-
+/**
+ * This class draws the exit screen 
+ * @author Quentin Fan-Chiang and Ruven Raizman  
+ */
 public class ExitScreen {
     PApplet sketch;
     PFont font18, font32, font48;
