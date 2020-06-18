@@ -289,7 +289,7 @@ public class Game {
             sketch.fill(255);
             sketch.textFont(sketch.loadFont("Graph-18.vlw"),18);
             sketch.textAlign(PApplet.LEFT,PApplet.BOTTOM);
-            long timeLeft = 600000-elapsedTime;
+            long timeLeft = 300000-elapsedTime;
             int minutes = (int) timeLeft/60000; //calculate minutes left
             timeLeft %= 60000; //remove minutes
             int seconds = (int) timeLeft/1000; //calculate seconds left
