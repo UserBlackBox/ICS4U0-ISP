@@ -30,28 +30,28 @@ public class Music {
      */
 	public void playMusic (int i)
 	{
-//		if(musicCheck)
-//		{
-//			clip.close();
-//		}
-//
-//		try {
-//			musicLocation=album[i];
-//			musicRunning=album[i];
-//			InputStream musicPath = getClass().getResourceAsStream(musicLocation);
-//			musicPath = new BufferedInputStream(musicPath);
-//			AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
-//			AudioFormat format = audioInput.getFormat();
-//			DataLine.Info info = new DataLine.Info(Clip.class, format);
-//			clip = (Clip) AudioSystem.getLine(info);
-//			clip.open(audioInput);
-//			clip.start();
-//			clip.loop(Clip.LOOP_CONTINUOUSLY);
-//
-//		}
-//		catch(Exception ex) {
-//			ex.printStackTrace();
-//		}
-//		musicCheck=true;
+		if(musicCheck)
+		{
+			clip.close();
+		}
+
+		try {
+			musicLocation=album[i];
+			musicRunning=album[i];
+			InputStream musicPath = getClass().getResourceAsStream(musicLocation);
+			musicPath = new BufferedInputStream(musicPath);
+			AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+			AudioFormat format = audioInput.getFormat();
+			DataLine.Info info = new DataLine.Info(Clip.class, format);
+			clip = (Clip) AudioSystem.getLine(info);
+			clip.open(audioInput);
+			clip.start();
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		musicCheck=true;
 	}	
 }

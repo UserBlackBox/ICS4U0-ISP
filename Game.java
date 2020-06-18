@@ -303,7 +303,7 @@ public class Game {
             elapsedTime = System.currentTimeMillis() - startTime; //calculate elapsed time
             if (elapsedTime >= 300000){ //if over 5 minutes exit game as fail
                 finished = true;
-                gos = new GameOverScreen(sketch, true, elapsedTime, main);
+                gos = new GameOverScreen(sketch, false, elapsedTime, main);
             }
 
             if (percentage >=100){ //if all infected end game
