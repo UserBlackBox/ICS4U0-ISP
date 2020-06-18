@@ -301,7 +301,7 @@ public class Game {
             if (hospitalUsed) hospitalChance = 2; //hospital chance drops after first use
 
             elapsedTime = System.currentTimeMillis() - startTime; //calculate elapsed time
-            if (elapsedTime >= 600000){ //if over 10 minutes exit game as fail
+            if (elapsedTime >= 300000){ //if over 5 minutes exit game as fail
                 finished = true;
                 gos = new GameOverScreen(sketch, true, elapsedTime, main);
             }
